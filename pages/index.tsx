@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -22,6 +22,8 @@ const Home: NextPage = () => {
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
   const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [changeWordFlag, setChangeWordFlag] = useState<boolean>(false)
+  const timer = useRef<any>(null)
   useEffect(() => {
     const resize = () => {
       setScreenSize({ width: window.innerWidth, height: window.innerHeight })
@@ -46,10 +48,24 @@ const Home: NextPage = () => {
     resize()
     window.addEventListener('resize', debounce(resize))
 
+    updateWordCloud()
+
     return () => {
       window.removeEventListener('resize', resize)
+      clearTimeout(wordCloudTimer)
     }
   }, [])
+
+  const updateWordCloud = () => {
+    // 出于性能原因，更新React状态的过程是异步的，可以用回调函数的方式达到回调的效果
+    setChangeWordFlag((changeWordFlag) => !changeWordFlag)
+    // https://github.com/facebook/react/issues/14010
+    timer.current = setTimeout(updateWordCloud, 2000)
+  }
+
+  const clearWordCloudTimer = () => {
+    clearTimeout(timer.current)
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -72,11 +88,13 @@ const Home: NextPage = () => {
               paddingTop: bgElementSize.height,
               paddingBottom: bgElementSize.height
             }}
-        >
+            onMouseEnter={clearWordCloudTimer}
+            onMouseLeave={updateWordCloud}>
           <WordCloudD3
             screenSize={screenSize}
             contentSize={contentSize}
             isMobile={isMobile}
+            changeWord={changeWordFlag}
           />
         </div>
       </main>

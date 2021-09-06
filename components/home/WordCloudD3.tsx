@@ -6,12 +6,14 @@ interface childProps {
   screenSize: object;
   paddingSize: object;
   isMobile: boolean;
+  changeWord: boolean;
 }
 
 const WordCloudD3 = (props: any) => {
   const { screenSize,
           contentSize,
-          isMobile
+          isMobile,
+          changeWord
         } = props
   const words = [
     'JavaScript',
@@ -98,13 +100,18 @@ const WordCloudD3 = (props: any) => {
           .style('fill', (d: any) => d.color)
           .attr('id', (d: any) => d.id)
           .attr('text-anchor', 'middle')
+          .attr('stroke', 'black')
+          .attr('stroke-width', 2)
+          .on('click', (d) => {
+            console.log(d)
+          })
           .transition()
             .duration(600)
             .attr('transform', (d: any) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
             .style('fill-opacity', 1)
           .text((d: any) => d.text)
     }
-  }, [screenSize])
+  }, [screenSize, changeWord])
 
   return <div id='wordCloud'></div>
 }
