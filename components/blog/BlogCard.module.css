@@ -1,0 +1,18 @@
+.cardWrap {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+.cardContent {
+  margin-left: 20px;
+}
+.cardTitle {
+  font-size: 2vw;
+  color: #333;
+}
+.cardDesc {
+  margin-top: 10px;
+  font-size: 1vw;
+  color: #666;
+}
