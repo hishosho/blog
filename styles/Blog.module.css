@@ -2,3 +2,28 @@
   width: 80%;
   margin: 20px auto;
 }
+.blog {
+  position: relative;
+  animation: blogAnimation 1s;
+}
+@keyframes blogAnimation {
+  0% {
+    top: 40px;
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  25% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 75%;
+  }
+  100% {
+    top: 0px;
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
