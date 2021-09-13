@@ -1,0 +1,22 @@
+.main {
+  background-color: #72d3ff;
+  display: inline-block;
+  border-radius: 8px;
+  height: 32px;
+  transform: scale(1);
+  transition: all .4s ease-in-out;
+}
+.name {
+  height: 100%;
+  color: #ffffff;
+  padding: 3px 12px;
+ 
+}
+.active {
+  background-color: #4d76e7;
+}
+.main:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.1);
+}

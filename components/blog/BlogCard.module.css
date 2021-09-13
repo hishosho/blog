@@ -1,5 +1,5 @@
 .cardWrap {
-  padding: 20px;
+  padding: 30px 20px;
   display: flex;
   flex-direction: row;
   cursor: pointer;
@@ -8,11 +8,17 @@
   margin-left: 20px;
 }
 .cardTitle {
-  font-size: 2vw;
+  font-weight: bold;
+  font-size: 1vw;
   color: #333;
+  transition: all .2s;
+}
+.cardTitle:hover {
+  transform: scale(1.1);
+  color: var(--text-hover-color);
 }
 .cardDesc {
   margin-top: 10px;
-  font-size: 1.5vw;
+  font-size: 0.5vw;
   color: #666;
 }

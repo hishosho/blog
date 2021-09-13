@@ -52,7 +52,7 @@ const Home: NextPage = () => {
 
     return () => {
       window.removeEventListener('resize', resize)
-      clearTimeout(wordCloudTimer)
+      clearTimeout(timer.current)
     }
   }, [])
 

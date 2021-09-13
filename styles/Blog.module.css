@@ -1,25 +1,88 @@
-.blogList {
-  width: 80%;
+.main {
+  width: 60%;
   margin: 20px auto;
+  display: grid;
+  row-gap: 64px;
+  column-gap: 96px;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+    "list categories"
+    "list popular";
+  ;
 }
-.blog {
+.list {
+  grid-area: list;
+}
+.categories {
+  grid-area: categories;
+}
+.popular {
+  grid-area: popular;
+}
+.title {
+  font-weight: bold;
+  padding: 30px 0;
+  animation: titleAnimation 1s;
+}
+.popularList {
+  list-style: none;
+}
+.popularBlog {
+  cursor: pointer;
+  font-size: 0.8vw;
+  padding-bottom: 20px;
+  animation: rightEnter 1s;
+  transform-origin: top left;
+  transform: scale(1);
+  transition: all .2s;
+}
+.popularBlog:hover {
+  transform: scale(1.1);
+  color: var(--text-hover-color);
+}
+
+@keyframes titleAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tag {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.tags {
+  position: relative;
+  animation: rightEnter 1s;
+}
+
+@keyframes rightEnter {
+  0% {
+    left: 40px;
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    left: 0px;
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
+
+.card {
   position: relative;
   animation: blogAnimation 1s;
 }
+
 @keyframes blogAnimation {
   0% {
     top: 40px;
     transform: scale(0.9);
     opacity: 0;
-  }
-  25% {
-    opacity: 25%;
-  }
-  50% {
-    opacity: 50%;
-  }
-  75% {
-    opacity: 75%;
   }
   100% {
     top: 0px;
