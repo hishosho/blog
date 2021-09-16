@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import WaveCanvas from '../../components/blog/WaveCanvas'
+import Navigation from '../../components/common/Navigation'
 import WaterCanvas from '../../components/blog/WaterCanvas'
+import Sun from '../../components/common/Sun'
 import Tag from '../../components/blog/Tag'
 import BlogCard from '../../components/blog/BlogCard'
 import { debounce } from '../../util/index'
 import styles from '../../styles/Blog.module.css'
+import Router from 'next/router'
 
 interface Blog {
   id: number;
@@ -51,6 +53,11 @@ const Blog = () => {
     }, 200)
   }, [])
 
+  const goto = useCallback((id: string) => {
+    const path = id === 'home' ? '' : id
+    Router.push(`/${path}`)
+  }, [])
+
   useEffect(() => {
     const resize = () => {
       const width: number = blogRef.current && blogRef.current.scrollWidth || 0
@@ -65,14 +72,23 @@ const Blog = () => {
       window.removeEventListener('resize', resize)
     }
     
-  }, [blogRef.current])
+  }, [])
   return (
-    <div ref={blogRef}>
-      <WaveCanvas 
-        width={width}
-        height={250}
-        colors={['rgba(255,98,87,.6)', 'rgba(255,118,87,.6)', 'rgba(255,138,87,.6)', 'rgba(255,158,87,.6)']}
-      />
+    <div 
+      ref={blogRef}
+      className={styles.blogWrap}>
+        <Sun
+          color="#f5d031"
+          size={{width: width, height: 250, r: 250 }}
+          translate={{ x: width / 2, y: 250 * 1.5 }}
+        />
+        <div 
+          className={styles.navigation}>
+          <Navigation
+            list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
+            callBack={goto}
+          />
+        </div>
       <main className={styles.main}>
        <section className={styles.list}>
          {

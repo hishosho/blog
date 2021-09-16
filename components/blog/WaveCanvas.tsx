@@ -21,52 +21,42 @@ const WaveCanvas = (props: any) => {
       raf: any = null
 
   const draw = () => {
-    step++
-    const angle: number = step * Math.PI / 180,
-          step1H: number = Math.sin(angle),
-          step2H: number = Math.cos(angle)
+    canvasCtx.translate(width / 2, height * 1.5)
+    canvasCtx.beginPath()
+    canvasCtx.save()
+    canvasCtx.arc(0, 0, height, 0, Math.PI * 2, true)
+    canvasCtx.fillStyle = '#f5d031'
+    canvasCtx.fill()
+    canvasCtx.restore()
+    canvasCtx.closePath()
 
-    if (flag) {
-      point1H = point1H + step1H
-      point2H = point2H - step2H
-    } else {
-      point1H = point1H - step1H
-      point2H = point2H + step2H
+    canvasCtx.beginPath()
+    canvasCtx.save()
+    canvasCtx.arc(-height / 3, -height / 1.75, 20, 0, Math.PI * 2, true)
+    canvasCtx.fillStyle = '#fff'
+    canvasCtx.fill()
+    canvasCtx.closePath()
+
+    canvasCtx.beginPath()
+    canvasCtx.save()
+    canvasCtx.arc(height / 3, -height / 1.75, 20, 0, Math.PI * 2, true)
+    canvasCtx.fillStyle = '#fff'
+    canvasCtx.fill()
+    canvasCtx.closePath()
+
+    canvasCtx.save();
+    canvasCtx.lineWidth = 10
+    canvasCtx.lineCap = 'round'
+    for (var i=0;i<12;i++){
+      canvasCtx.beginPath();
+      canvasCtx.rotate(Math.PI/6);
+      canvasCtx.moveTo(height + 40, 0);
+      canvasCtx.strokeStyle = '#f5d031'
+      canvasCtx.lineTo(height + 80, 0);
+      canvasCtx.stroke();
     }
+    canvasCtx.restore();
 
-    if (point1H === height) {
-      flag = false
-    }
-
-    flag = point1H === 0
-    
-    canvasCtx.clearRect(0, 0, width, height)
-
-    for (let i = 0; i < 4; i++) {
-      canvasCtx.save()
-      canvasCtx.fillStyle = colors[i]
-      canvasCtx.beginPath()
-      if (i === 0) {
-        canvasCtx.moveTo(0, 0)
-        canvasCtx.lineTo(0, 0)
-      } else if (i === 1) {
-        canvasCtx.moveTo(0, height / 2 + point1H / 2)
-        canvasCtx.bezierCurveTo(width / 2, point1H / 2, width / 2, point2H , width, height - point1H)
-      } else if (i === 2) {
-        canvasCtx.moveTo(0, height / 4 + point1H / 2)
-        canvasCtx.bezierCurveTo(width / 2, point1H / 4 , width / 2, point2H , width, height/2 - point1H / 2)
-      } else {
-        canvasCtx.moveTo(0, height / 6 + point1H / 2)
-        canvasCtx.bezierCurveTo(width / 2, point1H / 6 , width / 2, point2H , width, height/4- point1H / 4)
-      }
-      canvasCtx.lineTo(width, 0)
-      canvasCtx.lineTo(width, height)
-      canvasCtx.lineTo(0, height)
-      canvasCtx.closePath()
-      canvasCtx.fill()
-      canvasCtx.restore()
-    }
-    raf = window.requestAnimationFrame(draw)
   }
    
   useEffect(() => {

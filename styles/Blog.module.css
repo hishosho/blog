@@ -1,3 +1,11 @@
+.blogWrap {
+  position: relative;
+}
+.navigation {
+  position: absolute;
+  top: 20px;
+  left: 10%;
+}
 .main {
   width: 60%;
   margin: 20px auto;

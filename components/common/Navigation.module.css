@@ -1,0 +1,22 @@
+.item {
+  position: relative;
+  cursor: pointer;
+  color: #666;
+  display: inline-block;
+  padding: 20px 40px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.item::before {
+  opacity: 0;
+  color: #fff;
+  content: attr(data-hover);
+  position: absolute;
+  transform: scale(1.1) translateX(10px) translateY(-10px) rotate(4deg);
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+.item:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
