@@ -82,7 +82,7 @@ const Sun = (prop: any) => {
         counterclockwise: true
       }
       drawCircle(canvasCtx, { ...info, r: 20, fillStyle: '#fff' })
-      drawCircle(canvasCtx, { ...info, r: 5, fillStyle: '#666' })
+      drawCircle(canvasCtx, { ...info, r: 5, fillStyle: '#999' })
     }
 
     canvasCtx.save()
@@ -106,7 +106,7 @@ const Sun = (prop: any) => {
       canvasCtx && draw(canvasCtx)
     }
   }, [draw])
-  return <canvas ref={sunRef} height={size.height} width={size.width} style={{background: '#ff9b5f'}}></canvas>
+  return <canvas ref={sunRef} height={size.height} width={size.width} style={{backgroundColor: '#FFB391'}}></canvas>
 }
 
 export default Sun

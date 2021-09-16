@@ -10,7 +10,7 @@
 .cardTitle {
   font-weight: bold;
   font-size: 1vw;
-  color: #333;
+  color: #A0937D;
   transition: all .2s;
 }
 .cardTitle:hover {
@@ -20,5 +20,5 @@
 .cardDesc {
   margin-top: 10px;
   font-size: 0.5vw;
-  color: #666;
+  color: #A0937D;
 }

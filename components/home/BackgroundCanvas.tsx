@@ -21,7 +21,7 @@ const BackgroundCanvas = (props: any) => {
     clearTimeout(bgTimeout)
     // 小扇形的颜色，每次渲染变换颜色顺序达到动态效果
    // let colors: string[] = ['#7F7FD5', '#86A8E7', '#91EAE4']
-   let colors: string[] = ['#E8110F', '#FBC723', '#1B6AA5']
+   let colors: string[] = ['#C1FFD7', '#B5DEFF', '#CAB8FF']
     
     /**
      * 每个半圆（扇形）里画三个小半圆（扇形）

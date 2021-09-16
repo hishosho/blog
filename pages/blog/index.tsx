@@ -78,7 +78,7 @@ const Blog = () => {
       ref={blogRef}
       className={styles.blogWrap}>
         <Sun
-          color="#f5d031"
+          color="#FFE194"
           size={{width: width, height: 250, r: 250 }}
           translate={{ x: width / 2, y: 250 * 1.5 }}
         />

@@ -1,5 +1,6 @@
 .blogWrap {
   position: relative;
+  background-image: linear-gradient(#fdff91, #fff);
 }
 .navigation {
   position: absolute;
@@ -29,6 +30,7 @@
   grid-area: popular;
 }
 .title {
+  color: #A0937D;
   font-weight: bold;
   padding: 30px 0;
   animation: titleAnimation 1s;

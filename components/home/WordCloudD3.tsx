@@ -67,7 +67,7 @@ const WordCloudD3 = (props: any) => {
       } else {
         size = d.length > 5 ? 20 : 10 + Math.random() * 90
       }
-      const colors: string[] = ['', '#1af589', '#9d55ff', '#ff5722', '#ff22dc']
+      const colors: string[] = ['', '#6F69AC', '#95DAC1', '#FF6B6B', '#FD6F96']
       const color: string = colors[Math.floor(Math.random() * 4 + 1)]
       return {id: i, text: d, size, color}
     })
@@ -100,7 +100,7 @@ const WordCloudD3 = (props: any) => {
           .style('fill', (d: any) => d.color)
           .attr('id', (d: any) => d.id)
           .attr('text-anchor', 'middle')
-          .attr('stroke', 'black')
+          // .attr('stroke', 'black')
           .attr('stroke-width', 2)
           .on('click', (d) => {
             console.log(d)
