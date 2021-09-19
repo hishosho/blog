@@ -38,7 +38,7 @@ const Sun = (prop: any) => {
 
   const sunRef = useRef<HTMLCanvasElement>(null)
   const moveTimer = useRef<any>(null)
-  const [angle, setAngle] = useState<number>(0)
+  const [mousePosition, setMousePosition] = useState<Position>({x: 0, y: 0})
 
   const drawCircle = (canvasCtx: CanvasRenderingContext2D, info: CircleInfo) => {
     canvasCtx.save()
@@ -63,6 +63,7 @@ const Sun = (prop: any) => {
     canvasCtx.clearRect(0, 0, size.width, size.height)
     
     canvasCtx.save()
+    // 太阳
     canvasCtx.translate(translate.x, translate.y)
     drawCircle(canvasCtx, {
       x: 0,
@@ -74,6 +75,7 @@ const Sun = (prop: any) => {
       fillStyle: color
     })
 
+    // 眼球和眼珠
     for (let i = 0; i < 2; i++) {
       canvasCtx.save()
       const x = i % 2 === 0 ? -size.height / 3 : size.height / 3
@@ -84,8 +86,13 @@ const Sun = (prop: any) => {
         eAngle: Math.PI * 2,
         counterclockwise: true
       }
+      // 眼球
       drawCircle(canvasCtx, { ...info, x: 0, y: 0, r: 20, fillStyle: '#fff' })
-      drawCircle(canvasCtx, { ...info, x: -15 * Math.cos(angle), y: 15 * Math.sin(angle), r: 5, fillStyle: '#999' })
+      const mouseRelativePositionX  = mousePosition.x - translate.x - x
+      const mouseRelativePositionY = mousePosition.y - translate.y - y
+      const angle = Math.atan2(mouseRelativePositionY, mouseRelativePositionX)
+      // 眼珠
+      drawCircle(canvasCtx, { ...info, x: 15 * Math.cos(angle), y: 15 * Math.sin(angle), r: 5, fillStyle: '#999' })
       canvasCtx.restore()
     }
     
@@ -104,11 +111,13 @@ const Sun = (prop: any) => {
     canvasCtx.restore()
 
     canvasCtx.restore()
-  }, [size, translate, color, angle])
+  }, [size, translate, color, mousePosition])
 
-  const move = (e: MouseEvent) => {
+  const move = (e: any) => {
     clearTimeout(moveTimer.current)
-    moveTimer.current = setTimeout(() => setAngle(Math.atan2(e.clientY, e.clientX) * 180 / Math.PI), 5)
+    moveTimer.current = setTimeout(() => {
+      setMousePosition({x: e.clientX, y: e.clientY})
+    }, 5)
   }
 
   useEffect(() => {
@@ -121,7 +130,15 @@ const Sun = (prop: any) => {
       clearTimeout(moveTimer.current)
     }
   }, [draw])
-  return <canvas ref={sunRef} height={size.height} width={size.width} style={{backgroundColor: '#FFB391'}} onMouseMove={move}></canvas>
+  return (
+    <canvas
+      ref={sunRef}
+      height={size.height}
+      width={size.width}
+      style={{backgroundColor: '#FFB391'}}
+      onMouseMove={move}
+    ></canvas>
+  )
 }
 
 export default Sun
