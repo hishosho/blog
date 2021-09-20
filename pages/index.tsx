@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -6,6 +6,9 @@ import BackgroundCanvas from '../components/home/BackgroundCanvas'
 import WordCloudD3 from '../components/home/WordCloudD3'
 
 import { debounce } from '../util/index'
+
+import Type from '../store/reducerType'
+import {Context} from '../store'
 
 interface Size {
   width: number;
@@ -18,6 +21,7 @@ interface TerminalInfo {
 }
 
 const Home: NextPage = () => {
+  const { state, dispatch } = useContext(Context)
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
@@ -29,6 +33,8 @@ const Home: NextPage = () => {
     const width = window.innerWidth
     const height = window.innerHeight
 
+    dispatch({ type: Type.SET_CLIENT_SIZE, payload: { width, height } })
+
     setScreenSize({ width, height })
 
     const isMobile: boolean = window.matchMedia('(max-width: 768px)').matches
@@ -39,6 +45,7 @@ const Home: NextPage = () => {
       height: isMobile ? 7 : 3,
       isMobile
     }
+
     const paddingW = width / arcNum.width / 2,
           paddingH = (height - paddingW * 2) / arcNum.height / 2
     
@@ -46,7 +53,7 @@ const Home: NextPage = () => {
     setContentSize({ width: width - paddingH * (arcNum.isMobile ? 4 : 2),
                       height: height - paddingW * ((arcNum.isMobile ? 4 : 2))
                   })
-  }, [])
+  }, [dispatch])
 
   const updateWordCloud = useCallback(() => {
     // 出于性能原因，更新React状态的过程是异步的，可以用回调函数的方式达到回调的效果
@@ -104,9 +111,7 @@ const Home: NextPage = () => {
            onMouseEnter={clearWordCloudTimer}
            onMouseLeave={updateWordCloud}>
         <WordCloudD3
-          screenSize={screenSize}
           contentSize={contentSize}
-          isMobile={isMobile}
           changeWord={changeWordFlag}
         />
       </div>
