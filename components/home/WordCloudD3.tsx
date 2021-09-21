@@ -90,15 +90,15 @@ const WordCloudD3 = (props: childProps) => {
         .attr('id', (d: any) => d.id)
         .attr('text-anchor', 'middle')
         .attr('stroke-width', 2)
-        .on('click', (e: PointerEvent) => {
-
+        .on('click', (e: any) => {
+          selectWord(e.target.id)
         })
         .transition()
           .duration(600)
           .attr('transform', (d: any) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
           .style('fill-opacity', 1)
         .text((d: any) => d.text)
-  }, [contentSize])
+  }, [contentSize, selectWord])
 
   const buildCloud = useCallback(() => {
     cloud.default()

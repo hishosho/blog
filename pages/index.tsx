@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import type { NextPage } from 'next'
+import Router from 'next/router'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import BackgroundCanvas from '../components/home/BackgroundCanvas'
@@ -9,6 +10,7 @@ import { debounce } from '../util/index'
 
 import Type from '../store/reducerType'
 import {Context} from '../store'
+
 
 interface Size {
   width: number;
@@ -25,7 +27,6 @@ const Home: NextPage = () => {
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
-  const [isMobile, setIsMobile] = useState<boolean>(false)
   const [changeWordFlag, setChangeWordFlag] = useState<boolean>(false)
   const timer = useRef<any>(null)
 
@@ -38,7 +39,6 @@ const Home: NextPage = () => {
     setScreenSize({ width, height })
 
     const isMobile: boolean = window.matchMedia('(max-width: 768px)').matches
-    setIsMobile(isMobile)
 
     const arcNum: TerminalInfo = {
       width: isMobile ? 5 : 7,
@@ -56,6 +56,7 @@ const Home: NextPage = () => {
   }, [dispatch])
 
   const updateWordCloud = useCallback(() => {
+    // word cloud自动更新
     // 出于性能原因，更新React状态的过程是异步的，可以用回调函数的方式达到回调的效果
     setChangeWordFlag((preChangeWordFlag) => !preChangeWordFlag)
     // https://github.com/facebook/react/issues/14010
@@ -99,7 +100,7 @@ const Home: NextPage = () => {
   }
 
   const goto = useCallback((id) => {
-
+    Router.push(`/${id}`)
   }, [])
 
   const wordCloudContent = () => {
