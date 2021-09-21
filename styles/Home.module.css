@@ -4,9 +4,6 @@
 .background {
   position: absolute;
 }
-.canvasBackground {
-  display: block;
-}
 .wordCloud {
   position: relative;
 }

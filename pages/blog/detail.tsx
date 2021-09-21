@@ -2,7 +2,6 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import Navigation from '../../components/common/Navigation'
 import styles from '../../styles/BlogDetail.module.css'
 import Router from 'next/router'
-import content from '*.png'
 const BlogDetail = () => {
   const title = () => {
     return (

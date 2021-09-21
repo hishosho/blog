@@ -1,14 +1,19 @@
 import { useRef, useEffect, useState } from 'react'
+
+interface Size {
+  width: number;
+  height: number;
+}
 interface childProps {
-  canvasSize: object;
-  imgSize: object;
+  canvasSize: Size;
+  imgSize: Size;
 }
 interface arcQuantity {
   width: number;
   height: number;
 }
 
-const BackgroundCanvas = (props: any) => {
+const BackgroundCanvas = (props: childProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null),
         [ canvasCtx, setCanvasCtx ] = useState<any>(null),
         [ bgTimeout, setBgTimeout ] = useState<any>(null),

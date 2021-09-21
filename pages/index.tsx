@@ -21,7 +21,7 @@ interface TerminalInfo {
 }
 
 const Home: NextPage = () => {
-  const { state, dispatch } = useContext(Context)
+  const { state, dispatch } = useContext<any>(Context)
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
@@ -91,13 +91,16 @@ const Home: NextPage = () => {
     return (
       <div className={styles.background}>
           <BackgroundCanvas
-            className={styles.canvasBackground}
             canvasSize={screenSize}
             imgSize={bgElementSize}
           />
         </div>
     )
   }
+
+  const goto = useCallback((id) => {
+
+  }, [])
 
   const wordCloudContent = () => {
     return (
@@ -112,7 +115,7 @@ const Home: NextPage = () => {
            onMouseLeave={updateWordCloud}>
         <WordCloudD3
           contentSize={contentSize}
-          changeWord={changeWordFlag}
+          selectWord={goto}
         />
       </div>
     )

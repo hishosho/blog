@@ -1,17 +1,22 @@
 import * as d3 from 'd3'
 import * as cloud from 'd3-cloud'
-import { useState, useEffect, useContext, useCallback } from 'react'
+import { useEffect, useContext, useCallback } from 'react'
 import { Context } from '../../store'
 
-interface childProps {
-  paddingSize: object;
-  changeWord: boolean;
+interface Size {
+  width: number;
+  height: number;
 }
 
-const WordCloudD3 = (props: any) => {
-  const { globalState, dispatch } = useContext(Context)
+interface childProps {
+  contentSize: Size;
+  selectWord: Function;
+}
+
+const WordCloudD3 = (props: childProps) => {
+  const { globalState, dispatch } = useContext<any>(Context)
   const { contentSize,
-          changeWord
+          selectWord
         } = props
   const words = [
     'JavaScript',
@@ -85,8 +90,8 @@ const WordCloudD3 = (props: any) => {
         .attr('id', (d: any) => d.id)
         .attr('text-anchor', 'middle')
         .attr('stroke-width', 2)
-        .on('click', (d) => {
-          console.log(d)
+        .on('click', (e: PointerEvent) => {
+
         })
         .transition()
           .duration(600)

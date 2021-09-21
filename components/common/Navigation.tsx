@@ -10,7 +10,7 @@ interface childProp {
   callBack: Function;
 }
 
-const Navigation = (prop: any) => {
+const Navigation = (prop: childProp) => {
   const {
     list,
     callBack

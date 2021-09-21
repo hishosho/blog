@@ -11,8 +11,8 @@ const initState = {
 
 const Context = createContext({})
 
-const Provider = ({ children }) => {
-  const [ state, dispatch ] = useReducer(reducer, initState)
+const Provider = ({ children }: any) => {
+  const [ state, dispatch ] = useReducer<any>(reducer, initState)
   const value = { globalState: state, dispatch }
   return <Context.Provider value={value}>{children}</Context.Provider>
 }

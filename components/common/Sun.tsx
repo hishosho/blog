@@ -29,7 +29,7 @@ interface childProp {
   translate: Position;
 }
 
-const Sun = (prop: any) => {
+const Sun = (prop: childProp) => {
   const {
     color,
     size,
