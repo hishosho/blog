@@ -2,7 +2,14 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import Navigation from '../../components/common/Navigation'
 import styles from '../../styles/BlogDetail.module.css'
 import Router from 'next/router'
-const BlogDetail = () => {
+import { markdownData } from '../../mock/data'
+import BlogService from '../../services/BlogService'
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
+
+const BlogDetail = (props: any) => {
+  const [articleContent, setArticleContent] = useState<string>('')
   const title = () => {
     return (
       <div className={styles.titleWraper}>
@@ -30,16 +37,42 @@ const BlogDetail = () => {
   const content = () => {
     return (
       <>
-        <main className={styles.main}>
-          <aside className={styles.menu}>
+        <main
+          className={styles.main}
+        >
+          <aside
+            className={styles.menu}
+          >
             <h2>目录</h2>
           </aside>
-          <article>Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍Vue-router基本用法介绍</article>
+          <article>
+            <div
+              dangerouslySetInnerHTML={{__html:articleContent}}
+            >
+            </div>
+          </article>
         </main>
       </>
     )
   }
 
+  useEffect(() => {
+    const renderer = new marked.Renderer()
+    marked.setOptions({
+      renderer: renderer, 
+      gfm: true,
+      pedantic: false,
+      sanitize: false,
+      tables: true,
+      breaks: false,
+      smartLists: true,
+      smartypants: false,
+      highlight: (code) => {
+        return hljs.highlightAuto(code).value
+      }
+    })
+    setArticleContent(marked(props.detail.content))
+  }, [articleContent, props.detail])
 
   return (
     <div className={styles.detailWraper}>
@@ -47,6 +80,13 @@ const BlogDetail = () => {
       {content()}
     </div>
   )
+}
+
+BlogDetail.getInitialProps = async (ctx: any) => {
+  const { success, data } = BlogService.getBlogDetail(ctx.query.id)
+  return {
+    detail: markdownData
+  }
 }
 
 export default BlogDetail

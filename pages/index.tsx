@@ -11,6 +11,9 @@ import { debounce } from '../util/index'
 import Type from '../store/reducerType'
 import {Context} from '../store'
 
+import HomeService from '../services/HomeService'
+import { initWords } from '../mock/data'
+
 
 interface Size {
   width: number;
@@ -22,13 +25,16 @@ interface TerminalInfo {
   isMobile: boolean;
 }
 
-const Home: NextPage = () => {
+const Home: NextPage = ({initWords}) => {
   const { state, dispatch } = useContext<any>(Context)
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
   const [changeWordFlag, setChangeWordFlag] = useState<boolean>(false)
   const timer = useRef<any>(null)
+  const wordsRef = useRef<any>(null)
+
+  wordsRef.current = initWords
 
   const resize = useCallback(() => {
     const width = window.innerWidth
@@ -99,8 +105,8 @@ const Home: NextPage = () => {
     )
   }
 
-  const goto = useCallback((id) => {
-    Router.push(`/${id}`)
+  const goto = useCallback((path) => {
+    Router.push(path)
   }, [])
 
   const wordCloudContent = () => {
@@ -115,8 +121,10 @@ const Home: NextPage = () => {
            onMouseEnter={clearWordCloudTimer}
            onMouseLeave={updateWordCloud}>
         <WordCloudD3
+          words={wordsRef.current || []}
           contentSize={contentSize}
           selectWord={goto}
+          changeWordFlag={changeWordFlag}
         />
       </div>
     )
@@ -131,6 +139,14 @@ const Home: NextPage = () => {
       </main>
     </div>
   )
+}
+
+// TODO mock
+Home.getInitialProps = async () => {
+  const { success, data } = HomeService.words()
+  return {
+    initWords: initWords
+  }
 }
 
 export default Home

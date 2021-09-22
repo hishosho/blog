@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import Navigation from '../../components/common/Navigation'
-import WaterCanvas from '../../components/blog/WaterCanvas'
 import Sun from '../../components/common/Sun'
 import Tag from '../../components/blog/Tag'
 import BlogCard from '../../components/blog/BlogCard'

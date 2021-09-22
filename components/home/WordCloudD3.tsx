@@ -9,71 +9,19 @@ interface Size {
 }
 
 interface childProps {
+  words: [];
   contentSize: Size;
+  changeWordFlag: boolean;
   selectWord: Function;
 }
 
 const WordCloudD3 = (props: childProps) => {
-  const { globalState, dispatch } = useContext<any>(Context)
-  const { contentSize,
+  const { globalState } = useContext<any>(Context)
+  const { words,
+          contentSize,
+          changeWordFlag,
           selectWord
         } = props
-  const words = [
-    'JavaScript',
-    'TypeScript',
-    'Node.js',
-    '实践是检验真理的唯一标准',
-    '博客',
-    'Talk is cheap, show me your code!', 
-    '摄影集',
-    '认识你自己',
-    '试验田',
-    '计算机图形学',
-    'Vue.js',
-    'React.js',
-    'Next.js',
-    'Html5',
-    'CSS3',
-    'Canvas',
-    'SVG',
-    'd3.js',
-    '算法',
-    '数据结构',
-    '设计模式',
-    '学吧，学无止境，太深啦（请自行脑补彪哥图）',
-    'JavaScript',
-    'TypeScript',
-    'Node.js',
-    '实践是检验真理的唯一标准',
-    '博客',
-    'Talk is cheap, show me your code!', 
-    '摄影集',
-    '认识你自己',
-    '试验田',
-    '计算机图形学',
-    'Vue.js',
-    'React.js',
-    'Next.js',
-    'Html5',
-    'CSS3',
-    'Canvas',
-    'SVG',
-    'd3.js',
-    '算法',
-    '数据结构',
-    '设计模式',
-    '学吧，学无止境，太深啦（请自行脑补彪哥图）',
-  ].map((d, i) => {
-      let size = 0
-      if (globalState.isMobile) {
-        size = d.length > 5 ? 5 : 10 + Math.random() * 50
-      } else {
-        size = d.length > 5 ? 20 : 10 + Math.random() * 90
-      }
-      const colors: string[] = ['', '#6F69AC', '#95DAC1', '#FF6B6B', '#FD6F96']
-      const color: string = colors[Math.floor(Math.random() * 4 + 1)]
-      return {id: i, text: d, size, color}
-    })
 
   const draw = useCallback((words: []) => {
     d3.select('#wordCloud').append('svg')
@@ -87,12 +35,13 @@ const WordCloudD3 = (props: childProps) => {
         .style('font-size', (d: any) => `${d.size}px`)
         .style('font-family', (d: any) => d.length > 2 ? 'Times' : 'Impact')
         .style('fill', (d: any) => d.color)
+        .style('cursor', (d: any) => d.path ? 'pointer' : '')
         .attr('id', (d: any) => d.id)
+        .attr('font-weight', (d: any) => d.path ? 'bold' : '')
         .attr('text-anchor', 'middle')
         .attr('stroke-width', 2)
-        .on('click', (e: any) => {
-          selectWord(e.target.id)
-        })
+        .attr('stroke', (d: any) => d.path ? '#ddff55' : '')
+        .on('click', (e: any, d: any) => d.path && selectWord(d.path))
         .transition()
           .duration(600)
           .attr('transform', (d: any) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
@@ -101,6 +50,22 @@ const WordCloudD3 = (props: childProps) => {
   }, [contentSize, selectWord])
 
   const buildCloud = useCallback(() => {
+    words.map((d: any) => {
+      let size: number = 0
+      const colors: string[] = ['', '#6F69AC', '#95DAC1', '#FF6B6B', '#FD6F96']
+      let color: string = colors[Math.floor(Math.random() * 4 + 1)]
+      if (d.path) {
+        size = 80
+        color = '#95DAC1'
+      } else if (globalState.isMobile) {
+        size = words.length > 5 ? 5 : 10 + Math.random() * 50
+      } else {
+        size = words.length > 5 ? 20 : 10 + Math.random() * 90
+      }
+      
+      d.color = color
+      d.size = size
+    })
     cloud.default()
       .size([contentSize.width, contentSize.height])
       .words(words)
@@ -111,13 +76,13 @@ const WordCloudD3 = (props: childProps) => {
       .fontSize((d: any) => d.size)
       .on('end', draw)
       .start()
-  }, [contentSize, draw, words])
+  }, [contentSize, draw, words, globalState])
   
   useEffect(() => {
     d3.selectAll('svg').remove()
     if (globalState.clientSize.width === 0 && globalState.clientSize.height === 0) return
     buildCloud()
-  }, [buildCloud, globalState.clientSize])
+  }, [buildCloud, globalState, changeWordFlag])
 
   return <div id='wordCloud'></div>
 }
