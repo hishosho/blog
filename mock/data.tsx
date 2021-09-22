@@ -89,3 +89,15 @@ export const markdownData = {
   '``` js\n function () { \n'+
   'return \'hello word\' } \n ```'
 }
+
+export const blogs = [
+  { id: 1, title: '[Vue]基础学习', desc: 'Vue基本用法介绍' },
+  { id: 2, title: '[Vue-router]基础学习', desc: 'Vue-router基本用法介绍' },
+  { id: 3, title: '[React]基础学习', desc: 'React基本用法介绍' }
+]
+
+export const propulerBlogs = [
+  { id: 1, title: '[CSS]基础学习', desc: 'CSS 基本用法介绍' },
+  { id: 2, title: '[Vue-router]基础学习', desc: 'Vue-router基本用法介绍' },
+  { id: 3, title: '[React]基础学习', desc: 'React基本用法介绍' }
+]

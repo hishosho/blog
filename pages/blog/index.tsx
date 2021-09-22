@@ -6,6 +6,8 @@ import BlogCard from '../../components/blog/BlogCard'
 import { debounce } from '../../util/index'
 import styles from '../../styles/Blog.module.css'
 import Router from 'next/router'
+import BlogService from '../../services/BlogService'
+import { blogs, propulerBlogs } from '../../mock/data'
 
 interface Blog {
   id: number;
@@ -19,14 +21,11 @@ interface Tag {
   isActive: boolean;
 }
 
-const Blog = () => {
+const Blog = (props: any) => {
   const blogRef = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState<number>(0)
   const [height, setHeight] = useState<number>(0)
-  const [blogList, setBlogList] = useState<Blog[]>([
-    { id: 1, title: '[Vue]基础学习', desc: 'Vue基本用法介绍' },
-    { id: 2, title: '[Vue-router]基础学习', desc: 'Vue-router基本用法介绍' }
-  ])
+  const [blogList] = useState<Blog[]>(props.blogs)
   const [tagList, setTagList] = useState<Tag[]>([
     { id: 1, name: 'React', isActive: false },
     { id: 2, name: 'Vue', isActive: false },
@@ -34,10 +33,7 @@ const Blog = () => {
     { id: 4, name: 'CSS', isActive: false },
     { id: 5, name: 'Canvas', isActive: false }
   ])
-  const [popularBlogs, setPopularBlogs] = useState<Blog[]>([
-    { id: 1, title: '[Vue]基础学习', desc: 'Vue基本用法介绍' },
-    { id: 2, title: '[Vue-router]基础学习', desc: 'Vue-router基本用法介绍' }
-  ])
+  const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
 
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
@@ -133,6 +129,15 @@ const Blog = () => {
       </main>
     </div>
   )
+}
+
+Blog.getInitialProps= async () => {
+  // const { success, data } = BlogService.getBlogs()
+  // const { success, data } = BlogService.getPropulerBlogs()
+  return {
+    blogs: blogs,
+    propulerBlogs: propulerBlogs
+  }
 }
 
 export default Blog
