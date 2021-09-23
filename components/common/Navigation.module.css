@@ -1,3 +1,7 @@
+.list {
+  display: none;
+  position: fixed;
+}
 .item {
   position: relative;
   cursor: pointer;
@@ -19,4 +23,9 @@
 .item:hover::before {
   opacity: 1;
   transform: scale(1);
+}
+@media (min-width: 1084px) {
+  .list {
+    display: block;
+  }
 }

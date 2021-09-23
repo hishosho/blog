@@ -1,11 +1,12 @@
 import axios from './index'
 
 const BlogService = {
-  getBlogDetail: (id: string) => axios({ url: '/', params: {id} }),
+  getBlogDetail: (id: number) => axios({ url: '/', params: {id} }),
   getBlogs: () => axios({ url: '/' }),
   getPropulerBlogs: () => axios({ url: '/' }),
+  getBlogTags: () => axios({ url: '/' }),
+  getBlogsByTagId: (id: number) => axios({ url: '/', params: {id} }),
+  updateBlogTagState: ({ id, state }: {id: number, state: boolean}) => axios({ url: '/', params: { id, state } }),
 }
-
-
 
 export default BlogService

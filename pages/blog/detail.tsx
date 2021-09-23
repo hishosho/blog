@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Navigation from '../../components/common/Navigation'
 import styles from '../../styles/BlogDetail.module.css'
 import Router from 'next/router'
@@ -10,6 +10,7 @@ import 'highlight.js/styles/monokai-sublime.css'
 
 const BlogDetail = (props: any) => {
   const [articleContent, setArticleContent] = useState<string>('')
+  const [catalogue, setCatalogue] = useState<any>([])
   const title = () => {
     return (
       <div className={styles.titleWraper}>
@@ -34,17 +35,47 @@ const BlogDetail = (props: any) => {
     Router.push(`/${path}`)
   }, [])
 
+  const catalogueHtml = () => {
+    return (
+      <aside
+        className={styles.menu}
+      >
+        <h2
+          className={styles.catalogueTitle}
+        >
+          目录
+        </h2>
+        <ul>
+        {
+          catalogue.map((item: any, i: number) => {
+            return (
+              <li
+                style={{paddingLeft: item.level * 10 }}
+                className={styles.catalogueItem}
+                key={`${item.level}-${item.content}-${i}`}
+              >
+                <a
+                 href={`#${item.level}@${item.content}`}
+                 className={styles.catalogueItemLink}
+                >
+                  {item.content}
+                </a>
+              </li>
+            )
+          })
+        }
+        </ul>
+      </aside>
+    )
+  }
+
   const content = () => {
     return (
       <>
         <main
           className={styles.main}
         >
-          <aside
-            className={styles.menu}
-          >
-            <h2>目录</h2>
-          </aside>
+          {catalogueHtml()}
           <article>
             <div
               dangerouslySetInnerHTML={{__html:articleContent}}
@@ -56,8 +87,20 @@ const BlogDetail = (props: any) => {
     )
   }
 
-  useEffect(() => {
+  const buildCatalogue = useCallback(() => {
+    const tiitleArr = props.detail.content.match(/(#{1,5})\s.*\n/g)
+    const navArr = tiitleArr.map((item: any) => ({
+      content: item.replace(/(#{1,5}\s)|(\n)/g, ''),
+      level: item.match(/#{1,5}/)[0].length
+    }))
+    setCatalogue(navArr)
+  }, [props.detail.content])
+
+  const buildArticleContent = useCallback(() => {
     const renderer = new marked.Renderer()
+    renderer.heading = (text:string, level: number) => {
+      return `<h${level} id=${level}@${text} class='title-anchor'>${text}</h${level}>`
+    }
     marked.setOptions({
       renderer: renderer, 
       gfm: true,
@@ -72,7 +115,12 @@ const BlogDetail = (props: any) => {
       }
     })
     setArticleContent(marked(props.detail.content))
-  }, [articleContent, props.detail])
+  }, [props.detail.content])
+
+  useEffect(() => {
+    buildCatalogue()
+    buildArticleContent()
+  }, [buildArticleContent, buildCatalogue])
 
   return (
     <div className={styles.detailWraper}>
@@ -83,7 +131,7 @@ const BlogDetail = (props: any) => {
 }
 
 BlogDetail.getInitialProps = async (ctx: any) => {
-  const { success, data } = BlogService.getBlogDetail(ctx.query.id)
+  // const { success, data } = BlogService.getBlogDetail(ctx.query.id)
   return {
     detail: markdownData
   }

@@ -11,12 +11,12 @@
 }
 .title {
   font-weight: 400;
-  font-size: 3vw;
+  font-size: calc(2rem);
   padding-top: 116px;
   margin-bottom: 20px;
 }
 .desc {
-  font-size: 2vw;
+  font-size: calc(2rem);
   padding-top: 0;
 }
 .main {
@@ -29,11 +29,31 @@
   max-width: 1100px;
   margin: 0 auto;
 }
+.catalogueTitle {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+}
+.catalogueItem {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.catalogueItemLink {
+  text-decoration: none;
+  color: #666;
+}
+.catalogueItemLink:hover {
+  color: #ff9491;
+}
 .menu {
   display: none;
   width: 30%;
   padding-left: 50px;
   position: sticky;
+  top: 148px;
+  max-height: calc(100vh - 148px);
 }
 
 @media (min-width: 1084px) {

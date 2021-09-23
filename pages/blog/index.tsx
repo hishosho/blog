@@ -7,7 +7,7 @@ import { debounce } from '../../util/index'
 import styles from '../../styles/Blog.module.css'
 import Router from 'next/router'
 import BlogService from '../../services/BlogService'
-import { blogs, propulerBlogs } from '../../mock/data'
+import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
 
 interface Blog {
   id: number;
@@ -24,29 +24,24 @@ interface Tag {
 const Blog = (props: any) => {
   const blogRef = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState<number>(0)
-  const [height, setHeight] = useState<number>(0)
-  const [blogList] = useState<Blog[]>(props.blogs)
-  const [tagList, setTagList] = useState<Tag[]>([
-    { id: 1, name: 'React', isActive: false },
-    { id: 2, name: 'Vue', isActive: false },
-    { id: 3, name: 'JavaScript', isActive: false },
-    { id: 4, name: 'CSS', isActive: false },
-    { id: 5, name: 'Canvas', isActive: false }
-  ])
+  const [blogList, setBlogList] = useState<Blog[]>(props.blogs)
+  const [blogTags, setBlogTags] = useState<Tag[]>(props.blogTags)
   const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
 
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
     setTimeout(() => {
-      const newTagList = tagList.concat()
+      // const updateState = await BlogService.updateBlogTagState({id, state})
+      const newTagList = blogTags.concat()
       newTagList.map(tag => {
         if (tag.id === id) {
           tag.isActive = state
         }
       })
-      setTagList(newTagList)
+      setBlogTags(newTagList)
+      setBlogList(someBlogList)
     }, 200)
-  }, [])
+  }, [blogTags])
 
   const goto = useCallback((id: string) => {
     const path = id === 'home' ? '' : id
@@ -88,8 +83,10 @@ const Blog = (props: any) => {
        <section className={styles.list}>
          {
            blogList.map(({ id, title, desc }) => (
-            <div className={styles.card}
-                  key={id}>
+            <div 
+              className={styles.card}
+              key={id}
+              onClick={() => Router.push(`/blog/detail?id=${id}`)}>
               <BlogCard
                 id={id}
                 title={title}
@@ -101,7 +98,7 @@ const Blog = (props: any) => {
         <section  className={styles.categories}>
           <div className={styles.title}>文章分类</div>
             {
-              tagList.map(({ id, name, isActive }) => (
+              blogTags.map(({ id, name, isActive }) => (
                   <Tag
                     key={id}
                     propClass={`${styles.tags} ${styles.tag}`}
@@ -118,8 +115,13 @@ const Blog = (props: any) => {
           <ul className={styles.popularList}>
             {
               popularBlogs.map(({ id, title }) => (
-                  <li key={id}
-                      className={styles.popularBlog}>{ title }</li>
+                  <li
+                    key={id}
+                    className={styles.popularBlog}
+                    onClick={() => Router.push(`/blog/detail?id=${id}`)}
+                  >
+                    { title }
+                  </li>
                 )
               )
             }
@@ -132,11 +134,14 @@ const Blog = (props: any) => {
 }
 
 Blog.getInitialProps= async () => {
-  // const { success, data } = BlogService.getBlogs()
-  // const { success, data } = BlogService.getPropulerBlogs()
+  // const blogs = BlogService.getBlogs()
+  // const propulerBlogs = BlogService.getPropulerBlogs()
+  // const blogTags = BlogService.getBlogTags()
+
   return {
     blogs: blogs,
-    propulerBlogs: propulerBlogs
+    propulerBlogs: propulerBlogs,
+    blogTags: blogTags
   }
 }
 

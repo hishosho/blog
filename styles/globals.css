@@ -5,8 +5,9 @@ li,
 h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
+  color: #666;
 }
-h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size:100%; }
 html,
 body,
 body > div:first-child,
@@ -17,6 +18,9 @@ div#__next > div {
 ::-webkit-scrollbar {
   width: 0;
 }
+ul {
+  list-style: none;
+}
 
 /**
 解决document.body.clientHeight为0问题
@@ -25,6 +29,12 @@ html,body{ height:100% }
 
 html {
   scroll-behavior: smooth;
+}
+
+.title-anchor {
+  font-size: calc(1.5rem);
+  color: #666;
+  margin-bottom: 46px;
 }
 
 .detailed-content{
@@ -62,18 +72,6 @@ code {
 
 }
 
-.title-anchor{
-  color:#888 !important;
-  padding:4px !important;
-  margin: 0rem !important;
-  height: auto !important;
-  line-height: 1.2rem !important;
-  font-size: .7rem !important;
-  border-bottom: 1px dashed #eee;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
 .active{
   color:rgb(30, 144, 255) !important;
 }
