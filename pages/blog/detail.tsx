@@ -72,7 +72,9 @@ const BlogDetail = (props: any) => {
 
   const setActive = (id: string) => {
     const title: any = document.getElementById(id)
-    title.scrollIntoView()
+    title.scrollIntoView({
+      block: 'center'
+    })
   }
 
   const content = () => {
