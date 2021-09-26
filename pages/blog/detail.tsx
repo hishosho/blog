@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import Navigation from '../../components/common/Navigation'
 import styles from '../../styles/BlogDetail.module.css'
 import Router from 'next/router'
@@ -55,8 +55,9 @@ const BlogDetail = (props: any) => {
                 key={`${item.level}-${item.content}-${i}`}
               >
                 <a
-                 href={`#${item.level}@${item.content}`}
+                 data-catalogue={`${item.level}@${item.content}`}
                  className={styles.catalogueItemLink}
+                 onClick={() => setActive(`${item.level}@${item.content}`)}
                 >
                   {item.content}
                 </a>
@@ -67,6 +68,11 @@ const BlogDetail = (props: any) => {
         </ul>
       </aside>
     )
+  }
+
+  const setActive = (id: string) => {
+    const title: any = document.getElementById(id)
+    title.scrollIntoView()
   }
 
   const content = () => {
@@ -117,10 +123,35 @@ const BlogDetail = (props: any) => {
     setArticleContent(marked(props.detail.content))
   }, [props.detail.content])
 
+  const activeCatalogue = useCallback((ele) => {
+    const catalogueEle = document.querySelector(`a[data-catalogue='${ele.id}']`)
+
+    document.querySelectorAll('a[data-catalogue]').forEach(ele => {
+      ele.classList.remove('active')
+    })
+    catalogueEle && catalogueEle.classList.add('active')
+  }, [])
+
+  const scrollObserve = useCallback(() => {
+    const intersectionObserver = new IntersectionObserver(entries => {
+      entries.reverse().forEach(entry => {
+        if (entry.isIntersecting) {
+          activeCatalogue(entry.target)
+        }
+      })
+    })
+    document.querySelectorAll('.title-anchor').forEach(ele => {
+      intersectionObserver.observe(ele)
+    })
+  }, [activeCatalogue])
+
   useEffect(() => {
     buildCatalogue()
     buildArticleContent()
-  }, [buildArticleContent, buildCatalogue])
+    setTimeout(() => {
+      scrollObserve()
+    })
+  }, [buildArticleContent, buildCatalogue, scrollObserve])
 
   return (
     <div className={styles.detailWraper}>
