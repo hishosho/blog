@@ -1,4 +1,4 @@
-.aboutWraper {
+.aboutWrapper {
   height: 100%;
   background-color: #fafafa;
 }
@@ -10,9 +10,9 @@
   height: 100%;
   z-index: 1;
 }
-.leftFirst {
+.leftLight {
   position: fixed;
-  animation: leftFirstAnimation 1s ease-in-out;
+  animation: leftLightAnimation 1s ease-in-out;
   left: -60%;
   width: 60%;
   height: 100%;
@@ -20,9 +20,9 @@
   transform-origin: left bottom;
   transform: skewX(-55deg);
 }
-.leftSecond {
+.leftDark {
   position: fixed;
-  animation: leftSecondAnimation 1s ease;
+  animation: leftDarkAnimation 1s ease;
   left: -60%;
   width: 60%;
   height: 100%;
@@ -30,9 +30,9 @@
   transform-origin: left bottom;
   transform: skewX(-35deg);
 }
-.rightFirst {
+.rightLight {
   position: fixed;
-  animation: rightFirstAnimation 1.5s ease-in-out;
+  animation: rightLightAnimation 1.5s ease-in-out;
   right: -35%;
   width: 70%;
   background-color: #f3f3f3;
@@ -41,9 +41,9 @@
   transform: skewX(35deg);
 }
 
-.rightSecond {
+.rightDark {
   position: fixed;
-  animation: rightSecondAnimation 1.5s ease-in-out;
+  animation: rightDarkAnimation 1.5s ease-in-out;
   right: -80%;
   width: 80%;
   background-color: #eee;
@@ -52,7 +52,7 @@
   transform: skewX(55deg);
 }
 
-@keyframes leftFirstAnimation {
+@keyframes leftLightAnimation {
   0% {
     opacity: 0;
     transform: skewX(0);
@@ -63,7 +63,7 @@
   }
 }
 
-@keyframes leftSecondAnimation {
+@keyframes leftDarkAnimation {
   0% {
     opacity: 0;
     transform: skewX(0);
@@ -73,7 +73,7 @@
     transform: skewX(-35deg);
   }
 }
-@keyframes rightFirstAnimation {
+@keyframes rightLightAnimation {
   0% {
     opacity: 0;
     transform: skewX(0);
@@ -84,7 +84,7 @@
   }
 }
 
-@keyframes rightSecondAnimation {
+@keyframes rightDarkAnimation {
   0% {
     opacity: 0;
     transform: skewX(0);
@@ -96,9 +96,9 @@
 }
 
 @media (max-width: 768px) {
-  .leftFirst {
+  .leftLight {
     position: absolute;
-    animation: leftFirstAnimation 1s ease-in-out;
+    animation: leftLightAnimation 1s ease-in-out;
     left: -60%;
     width: 60%;
     height: 100%;
@@ -106,9 +106,9 @@
     transform-origin: left bottom;
     transform: skewX(-25deg);
   }
-  .leftSecond {
+  .leftDark {
     position: absolute;
-    animation: leftSecondAnimation 1s ease;
+    animation: leftDarkAnimation 1s ease;
     left: -60%;
     width: 60%;
     height: 100%;
@@ -116,7 +116,7 @@
     transform-origin: left bottom;
     transform: skewX(-15deg);
   }
-  @keyframes leftFirstAnimation {
+  @keyframes leftLightAnimation {
     0% {
       opacity: 0;
       transform: skewX(0);
@@ -127,7 +127,7 @@
     }
   }
   
-  @keyframes leftSecondAnimation {
+  @keyframes leftDarkAnimation {
     0% {
       opacity: 0;
       transform: skewX(0);
@@ -187,6 +187,14 @@
 .introduceContent {
   color: #e6a467;
 }
+.skillItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1rem;
+  transition: all .4s ease-in-out;
+}
 .title {
   font-size: 3rem;
   font-weight: 500;
@@ -207,21 +215,33 @@
   transform: scale(1.2);
 }
 .more {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   color: #fff;
-  width: calc((100vw - 20%) / 6);
-  height: calc(100vh / 7);
-  background-color: #def79a;
   border-radius: 200px 200px 0 0;
-  transform: scale(1.5);  
+  transform: scale(1.5);
   transition: all .4s ease-in-out;
+}
+.more > p:last-child {
+  opacity: 0;
 }
 .more:hover {
   transform: scale(2.5);
   z-index: 99;
+}
+.more:hover > p:first-child {
+  opacity: 0;
+}
+
+.more:hover .skillItems {
+  transform: translateY(-20px);
+  opacity: 1;
+}
+.more > p {
+  position: absolute;
 }
 .footer {
   width: 80%;
@@ -244,4 +264,47 @@
     transform: translateY(0);
   } 
 }
+/**
+  这里必须用position: fixed; 
+  用float: right加z-index: 99;依然无法提高图层，需要研究
+*/
+.navigation {
+  position: fixed;
+  z-index: 99;
+  right: 0;
+  height: 100%;
+  padding: 10% 5% 0 0;
+}
+.navigationList {
+  height: 100%;
+  animation: footerAnimation 2s ease-in;
+}
+.navigationItem {
+  padding: 2vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: .5vh solid #f7ec59;
+  background-color: #f7f8c6;
+  margin-bottom: 5vh;
+  border-radius: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e6a467;
+  transition: all .4s ease-in-out;
+}
+.navigationItem:first-child {
+  border: .5vh dashed #f7ec59;
+}
 
+.navigationItem:not(:first-child):hover {
+  transform: scale(1.2);
+}
+.navActive {
+  transform: translateX(0);
+  opacity: 1;
+}
+.navUnActive {
+  opacity: 0;
+}
