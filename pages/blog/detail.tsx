@@ -13,6 +13,7 @@ import WaterCanvas from '../../components/blog/WaterCanvas'
 const BlogDetail = (props: any) => {
   const [articleContent, setArticleContent] = useState<string>('')
   const [catalogue, setCatalogue] = useState<any>([])
+  const [isScroll, setIsScroll] = useState<boolean>(false)
   const title = () => {
     return (
       <div className={styles.titleWraper}>
@@ -166,10 +167,12 @@ const BlogDetail = (props: any) => {
           background='rgb(185, 225, 255, .7)'
           borderColor='rgb(185, 225, 255, .5)'
         />
-        <div className={styles.arrow}>^</div>
+        <div className={styles.arrow}></div>
       </div>
     )
   }
+
+  
 
   useEffect(() => {
     buildCatalogue()
@@ -177,13 +180,22 @@ const BlogDetail = (props: any) => {
     setTimeout(() => {
       scrollObserve()
     })
+
+    const scoll = () => {
+      setIsScroll(document.documentElement.scrollTop > 600)
+    }
+    window.addEventListener('scroll', scoll)
+
+    return () => {
+      window.removeEventListener('scroll', scoll)
+    }
   }, [buildArticleContent, buildCatalogue, scrollObserve])
 
   return (
     <div className={styles.detailWraper}>
       {detailHeader()}
       {content()}
-      {toTop()}
+      {isScroll && toTop()}
     </div>
   )
 }
