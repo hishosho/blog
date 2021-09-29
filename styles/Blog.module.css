@@ -3,9 +3,11 @@
   background-image: linear-gradient(#fdff91, #fff);
 }
 .navigation {
-  position: absolute;
-  top: 20px;
-  left: 10%;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  padding: 10px 0 10px 10%;
+  width: 100%;
 }
 .main {
   width: 60%;
@@ -109,7 +111,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .main {
     width: 90%;
     margin: 20px auto;

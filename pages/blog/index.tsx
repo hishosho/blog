@@ -27,6 +27,7 @@ const Blog = (props: any) => {
   const [blogList, setBlogList] = useState<Blog[]>(props.blogs)
   const [blogTags, setBlogTags] = useState<Tag[]>(props.blogTags)
   const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
+  const [isScroll, setIsScroll] = useState<boolean>(false)
 
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
@@ -58,8 +59,15 @@ const Blog = (props: any) => {
 
     window.addEventListener('resize', debounce(resize))
 
+    const scoll = () => {
+      setIsScroll(document.documentElement.scrollTop > 220)
+    }
+
+    window.addEventListener('scroll', scoll)
+
     return () => {
       window.removeEventListener('resize', resize)
+      window.removeEventListener('scroll', scoll)
     }
     
   }, [])
@@ -73,9 +81,11 @@ const Blog = (props: any) => {
           translate={{ x: width / 2, y: 250 * 1.5 }}
         />
         <div 
-          className={styles.navigation}>
+          className={styles.navigation}
+          style={{background: `${isScroll ? '#FFB391' : ''}`}}>
           <Navigation
             list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
+            background='#FFB391'
             callBack={goto}
           />
         </div>
@@ -125,7 +135,6 @@ const Blog = (props: any) => {
                 )
               )
             }
-            <li></li>
           </ul>
         </section>
       </main>

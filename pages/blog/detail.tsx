@@ -7,6 +7,8 @@ import BlogService from '../../services/BlogService'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
+import SunLogo from '../../components/common/SunLogo'
+import WaterCanvas from '../../components/blog/WaterCanvas'
 
 const BlogDetail = (props: any) => {
   const [articleContent, setArticleContent] = useState<string>('')
@@ -21,13 +23,22 @@ const BlogDetail = (props: any) => {
   }
   const detailHeader = () => {
     return (
-      <div className={styles.header}>
-        <Navigation
-          list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
-          callBack={goto}
-        />
-        {title()}
-      </div>
+      <>
+        <div className={styles.navigation}>
+          <SunLogo
+            size={{ width: 65, height: 65, r: 65 / 4 }}
+            translate={{ x: 65 / 2, y: 65 / 2 }}
+            color="#FFE194"
+          />
+          <Navigation
+            list={[{ id: 'home', name: 'home' }, { id: 'blog', name: 'blog' }, { id: 'about', name: 'about' }]}
+            callBack={goto}
+          />
+        </div>
+        <div className={styles.header}>
+          {title()}
+        </div>
+      </>
     )
   }
   const goto = useCallback((id: string) => {
@@ -46,25 +57,25 @@ const BlogDetail = (props: any) => {
           目录
         </h2>
         <ul>
-        {
-          catalogue.map((item: any, i: number) => {
-            return (
-              <li
-                style={{paddingLeft: item.level * 10 }}
-                className={styles.catalogueItem}
-                key={`${item.level}-${item.content}-${i}`}
-              >
-                <a
-                 data-catalogue={`${item.level}@${item.content}`}
-                 className={styles.catalogueItemLink}
-                 onClick={() => setActive(`${item.level}@${item.content}`)}
+          {
+            catalogue.map((item: any, i: number) => {
+              return (
+                <li
+                  style={{ paddingLeft: item.level * 10 }}
+                  className={styles.catalogueItem}
+                  key={`${item.level}-${item.content}-${i}`}
                 >
-                  {item.content}
-                </a>
-              </li>
-            )
-          })
-        }
+                  <a
+                    data-catalogue={`${item.level}@${item.content}`}
+                    className={styles.catalogueItemLink}
+                    onClick={() => setActive(`${item.level}@${item.content}`)}
+                  >
+                    {item.content}
+                  </a>
+                </li>
+              )
+            })
+          }
         </ul>
       </aside>
     )
@@ -86,7 +97,7 @@ const BlogDetail = (props: any) => {
           {catalogueHtml()}
           <article>
             <div
-              dangerouslySetInnerHTML={{__html:articleContent}}
+              dangerouslySetInnerHTML={{ __html: articleContent }}
             >
             </div>
           </article>
@@ -106,11 +117,11 @@ const BlogDetail = (props: any) => {
 
   const buildArticleContent = useCallback(() => {
     const renderer = new marked.Renderer()
-    renderer.heading = (text:string, level: number) => {
+    renderer.heading = (text: string, level: number) => {
       return `<h${level} id=${level}@${text} class='title-anchor'>${text}</h${level}>`
     }
     marked.setOptions({
-      renderer: renderer, 
+      renderer: renderer,
       gfm: true,
       pedantic: false,
       sanitize: false,
@@ -147,6 +158,19 @@ const BlogDetail = (props: any) => {
     })
   }, [activeCatalogue])
 
+  const toTop = () => {
+    return (
+      <div className={styles.toTop}>
+        <WaterCanvas
+          size={{ width: 60, height: 60 }}
+          background='rgb(185, 225, 255, .7)'
+          borderColor='rgb(185, 225, 255, .5)'
+        />
+        <div className={styles.arrow}>^</div>
+      </div>
+    )
+  }
+
   useEffect(() => {
     buildCatalogue()
     buildArticleContent()
@@ -159,6 +183,7 @@ const BlogDetail = (props: any) => {
     <div className={styles.detailWraper}>
       {detailHeader()}
       {content()}
+      {toTop()}
     </div>
   )
 }

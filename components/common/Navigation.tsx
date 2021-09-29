@@ -30,9 +30,7 @@ const Navigation = (prop: childProp) => {
   }
 
   return (
-    <ul
-      className={styles.list}
-    >
+    <ul>
       {list.map((item: NavItem) => navItem(item))}
     </ul>
   )

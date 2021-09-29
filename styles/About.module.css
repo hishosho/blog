@@ -95,49 +95,6 @@
   }
 }
 
-@media (max-width: 768px) {
-  .leftLight {
-    position: absolute;
-    animation: leftLightAnimation 1s ease-in-out;
-    left: -60%;
-    width: 60%;
-    height: 100%;
-    background-color: antiquewhite;
-    transform-origin: left bottom;
-    transform: skewX(-25deg);
-  }
-  .leftDark {
-    position: absolute;
-    animation: leftDarkAnimation 1s ease;
-    left: -60%;
-    width: 60%;
-    height: 100%;
-    background-color: #eee;
-    transform-origin: left bottom;
-    transform: skewX(-15deg);
-  }
-  @keyframes leftLightAnimation {
-    0% {
-      opacity: 0;
-      transform: skewX(0);
-    }
-    100% {
-      opacity: 1;
-      transform: skewX(-25deg);
-    }
-  }
-  
-  @keyframes leftDarkAnimation {
-    0% {
-      opacity: 0;
-      transform: skewX(0);
-    }
-    100% {
-      opacity: 1;
-      transform: skewX(-15deg);
-    }
-  }
-}
 /**
   position: fixed; 和z-index失效问题
   https://stackoverflow.com/questions/5218927/z-index-not-working-with-fixed-positioning
@@ -169,16 +126,16 @@
   } 
 }
 .photo {
-  width: 400px;
-  height: 400px;
+  width: 40vh;
+  height: 40vh;
   margin: 0 50px;
   border-radius: 50%;
-  border: 10px solid #f7f5ab;
+  border: 1vh solid #f7f5ab;
   transition: all .4s ease-in-out;
 }
 .photo img {
-  width: 400px;
-  height: 400px;
+  width: 40vh;
+  height: 40vh;
   border-radius: 50%;
 }
 .photo:hover {
@@ -275,36 +232,99 @@
   height: 100%;
   padding: 10% 5% 0 0;
 }
-.navigationList {
-  height: 100%;
-  animation: footerAnimation 2s ease-in;
-}
-.navigationItem {
-  padding: 2vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border: .5vh solid #f7ec59;
-  background-color: #f7f8c6;
-  margin-bottom: 5vh;
-  border-radius: 100%;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #e6a467;
-  transition: all .4s ease-in-out;
-}
-.navigationItem:first-child {
-  border: .5vh dashed #f7ec59;
+
+@media (max-width: 1024px) {
+  .leftLight {
+    transform: skewX(-25deg);
+  }
+  .leftDark {
+    transform: skewX(-15deg);
+  }
+  .rightLight {
+    right: -77%;
+    width: 80%;
+    transform: skewX(35deg);
+  }
+  
+  .rightDark {
+    right: -70%;
+    width: 80%;
+    transform: skewX(17deg);
+  }
+  @keyframes leftLightAnimation {
+    0% {
+      opacity: 0;
+      transform: skewX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: skewX(-25deg);
+    }
+  }
+  
+  @keyframes leftDarkAnimation {
+    0% {
+      opacity: 0;
+      transform: skewX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: skewX(-15deg);
+    }
+  }
+  @keyframes rightLightAnimation {
+    0% {
+      opacity: 0;
+      transform: skewX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: skewX(35deg);
+    }
+  }
+  
+  @keyframes rightDarkAnimation {
+    0% {
+      opacity: 0;
+      transform: skewX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: skewX(17deg);
+    }
+  }
+  .introduce {
+    flex-direction: column;
+  }
+  .photo {
+    width: 10vh;
+    height: 10vh;
+  }
+  .photo img {
+    width: 10vh;
+    height: 10vh;
+  }
+  .title {
+    margin-top: 1vh;
+    font-size: 2rem;
+    color: #f1b269;
+  }
+  .more:hover .skillItems {
+    opacity: 0;
+  }
+  .more:hover > p:first-child {
+    opacity: 1;
+  }
+  .more {
+    transform: scale(1);
+    font-size: .2rem;
+  }
+  .more:hover {
+    transform: scale(1);
+  }
+  .navigation {
+    
+    height: 80%;
+  }
 }
 
-.navigationItem:not(:first-child):hover {
-  transform: scale(1.2);
-}
-.navActive {
-  transform: translateX(0);
-  opacity: 1;
-}
-.navUnActive {
-  opacity: 0;
-}

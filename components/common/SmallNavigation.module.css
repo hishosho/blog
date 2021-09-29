@@ -1,0 +1,48 @@
+.list {
+  height: 100%;
+  animation: enter 2s ease-in;
+}
+.item {
+  padding: 2vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: .5vh solid #f7ec59;
+  background-color: #f7f8c6;
+  margin-bottom: 5vh;
+  border-radius: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e6a467;
+  transition: all .4s ease-in-out;
+}
+.item:first-child {
+  border: .5vh dashed #f7ec59;
+}
+
+.item:not(:first-child):hover {
+  transform: scale(1.2);
+}
+.navActive {
+  transform: translateX(0);
+  opacity: 1;
+}
+.navUnActive {
+  opacity: 0;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .item {
+    padding: 2vw;
+  }
+}

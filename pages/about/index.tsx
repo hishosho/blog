@@ -3,6 +3,7 @@ import photo from '../../public/photo.jpg'
 import styles from '../../styles/About.module.css'
 import { useState } from 'react'
 import Router from 'next/router'
+import SmallNavigation from '../../components/common/SmallNavigation'
 const About = () => {
   const [onNavigation, setOnNavigation] = useState<boolean>(false)
   const skillList = [
@@ -20,7 +21,7 @@ const About = () => {
     },
     {
       id: 'JavaScript',
-      name: 'JavaScript',
+      name: 'JS',
       backgroundColor: '#fc913a',
       items: ['JavaScript', 'ES6', 'TypeScript']
     },
@@ -112,57 +113,22 @@ const About = () => {
       </section>
     )
   }
-  const smallNav = () => {
-    const enterNavigation = (state: boolean) => {
-      setOnNavigation(state)
-    }
-    const navigations = [
-      {
-        id: 'home',
-        name: 'Home',
-        path: '/'
-      },
-      {
-        id: 'blog',
-        name: 'blog',
-        path: '/blog'
-      },
-      {
-        id: 'about',
-        name: 'About',
-        path: '/about'
-      }
-    ]
-    
+  const navigation = () => {
     return (
       <div
         className={styles.navigation}
-        onMouseEnter={() => enterNavigation(true)}
-        onMouseLeave={() => enterNavigation(false)}
+        onMouseEnter={() => setOnNavigation(true)}
+        onMouseLeave={() => setOnNavigation(false)}
       >
-        <ul
-          className={styles.navigationList}
-        >
-          <li className={styles.navigationItem}>Menu</li>
-          {
-            navigations.map((nav, i) => (
-              <li 
-                key={nav.id}
-                className={`${styles.navigationItem} ${onNavigation ? styles.navActive : styles.navUnActive}`}
-                style={{transform: onNavigation===false ? `translate(${100 * i}%)` : '', transitionDelay: `.${i}s`, cursor: 'pointer'}}
-                onClick={() => Router.push(nav.path)}
-              >
-                {nav.name}
-              </li>
-            ))
-          }
-        </ul>
+        <SmallNavigation 
+          enter={onNavigation}
+        />
       </div>
     )
   }
   return (
     <div className={styles.aboutWrapper}>
-      {smallNav()}
+      {navigation()}
       {background()}
       {main()}
       {skills()}
