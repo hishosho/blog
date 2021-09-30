@@ -161,7 +161,9 @@ const BlogDetail = (props: any) => {
 
   const toTop = () => {
     return (
-      <div className={styles.toTop}>
+      <div className={styles.toTop}
+        onClick={() => document.documentElement.scrollTop = 0}
+      >
         <WaterCanvas
           size={{ width: 60, height: 60 }}
           background='rgb(185, 225, 255, .7)'
