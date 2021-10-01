@@ -5,6 +5,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import BackgroundCanvas from '../components/home/BackgroundCanvas'
 import WordCloudD3 from '../components/home/WordCloudD3'
+import AnimationContent from '../components/home/AnimationContent'
 
 import { debounce } from '../util/index'
 
@@ -120,12 +121,15 @@ const Home: NextPage = ({initWords}) => {
            }}
            onMouseEnter={clearWordCloudTimer}
            onMouseLeave={updateWordCloud}>
-        <WordCloudD3
+        {/* <WordCloudD3
           words={wordsRef.current || []}
           contentSize={contentSize}
           selectWord={goto}
           changeWordFlag={changeWordFlag}
-        />
+        /> */}
+        <AnimationContent
+          contentSize={contentSize}
+        /> 
       </div>
     )
   }
