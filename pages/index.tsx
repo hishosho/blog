@@ -113,12 +113,6 @@ const Home: NextPage = ({initWords}) => {
   const wordCloudContent = () => {
     return (
       <div className={styles.wordCloud}
-           style={{
-              paddingLeft: bgElementSize.width,
-              paddingRight: bgElementSize.width,
-              paddingTop: bgElementSize.height,
-              paddingBottom: bgElementSize.height
-           }}
            onMouseEnter={clearWordCloudTimer}
            onMouseLeave={updateWordCloud}>
         {/* <WordCloudD3

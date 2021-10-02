@@ -28,13 +28,14 @@ const AnimationContent = (props: childProps) => {
 
   const raf = useRef<any>(null)
   const [animationEles] = useState<AnimationEle[]>([
-    {id: 'sun_1', type: 'sun', x: 0, y: 0, vx: 2, vy: 3},
-    {id: 'sun_2', type: 'sun', x: 0, y: 0, vx: 4, vy: 2}, 
-    {id: 'sun_3', type: 'sun', x: 0, y: 0, vx: 3.5, vy: 4}, 
-    {id: 'sun_4', type: 'sun', x: 0, y: 0, vx: 2.5, vy: 3.5}, 
-    {id: 'sun_5', type: 'sun', x: 0, y: 0, vx: 3, vy: 5},
-    {id: 'text_1', type: 'text', text: 'welcome!', x: 0, y: 0, vx: 2, vy: 2},
-    {id: 'about', type: 'text', text: 'About', x: 0, y: 0, vx: 1.5, vy: 1},
+    {id: 'sun_1', type: 'sun', x: 0, y: 0, vx: 1, vy: 1.5},
+    {id: 'text_2', type: 'text', text: 'shosho’s site', x: 100, y: 100, vx: 2, vy: 2},
+    {id: 'sun_2', type: 'sun', x: 200, y: 100, vx: 2.5, vy: 2.5}, 
+    {id: 'sun_3', type: 'sun', x: 300, y: 100, vx: 3, vy: 3}, 
+    {id: 'sun_4', type: 'sun', x: 400, y: 100, vx: 2.5, vy: 3.5}, 
+    {id: 'sun_5', type: 'sun', x: 500, y: 100, vx: 1.8, vy: 2},
+    {id: 'text_1', type: 'text', text: 'welcome!', x: 0, y: 0, vx: 2.2, vy: 3},
+    {id: 'about', type: 'text', text: 'About', x: 0, y: 0, vx: 1.3, vy: 2},
     {id: 'blog', type: 'text', text: 'Blog', x: 0, y: 0, vx: 1, vy: 1.8}
   ])
   
@@ -71,7 +72,7 @@ const AnimationContent = (props: childProps) => {
 
   const subContent = (item: AnimationEle) => {
     if (item.type === 'text') {
-      return <div style={{width: '200px', height: '200px'}}>{item.text}</div>
+      return <div style={{width: '400px', fontSize: '40px', fontWeight: 500, color: 'blue'}}>{item.text}</div>
     } else {
       return (
         <SunLogo
