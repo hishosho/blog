@@ -17,28 +17,30 @@ interface Size {
 
 interface childProps {
   contentSize: Size;
+  go: Function;
 }
 
 const AnimationContent = (props: childProps) => {
   const {
-    contentSize
+    contentSize,
+    go
   } = props
 
   const raf = useRef<any>(null)
   const [animationEles] = useState<AnimationEle[]>([
     {id: 'sun_1', type: 'sun', x: 0, y: 0, vx: 2, vy: 3},
-    {id: 'sun_2', type: 'sun', x: 200, y: 20, vx: 4, vy: 2}, 
-    {id: 'sun_3', type: 'sun', x:400, y: 63, vx: 3.5, vy: 4}, 
-    {id: 'sun_4', type: 'sun', x: 600, y: 9, vx: 2.5, vy: 3.5}, 
-    {id: 'sun_5', type: 'sun', x: 800, y: 220, vx: 3, vy: 5},
-    {id: 'text_1', type: 'text', text: 'welcome!', x: 200, y: 220, vx: 2, vy: 2},
-    {id: 'about', type: 'text', text: 'About', x: 100, y: 20, vx: 1.5, vy: 1},
-    {id: 'blog', type: 'text', text: 'Blog', x: 20, y: 40, vx: 1, vy: 1.8}
+    {id: 'sun_2', type: 'sun', x: 0, y: 0, vx: 4, vy: 2}, 
+    {id: 'sun_3', type: 'sun', x: 0, y: 0, vx: 3.5, vy: 4}, 
+    {id: 'sun_4', type: 'sun', x: 0, y: 0, vx: 2.5, vy: 3.5}, 
+    {id: 'sun_5', type: 'sun', x: 0, y: 0, vx: 3, vy: 5},
+    {id: 'text_1', type: 'text', text: 'welcome!', x: 0, y: 0, vx: 2, vy: 2},
+    {id: 'about', type: 'text', text: 'About', x: 0, y: 0, vx: 1.5, vy: 1},
+    {id: 'blog', type: 'text', text: 'Blog', x: 0, y: 0, vx: 1, vy: 1.8}
   ])
   
   const run = useCallback(() => {
     if (raf.current !== void 0) {
-      animationEles.map((ele, i) => {
+      animationEles.map((ele) => {
         if (ele.x + ele.vx > contentSize.width || ele.x + ele.vx <=0) {
           ele.vx = -ele.vx
         }
@@ -51,8 +53,10 @@ const AnimationContent = (props: childProps) => {
 
         const element: any  = document.getElementById(ele.id)
 
-        element.style.left = `${ele.x}px`
-        element.style.top = `${ele.y}px`
+        element.style.transform = `translate(${ele.x}px, ${ele.y}px)`
+
+        // element.style.left = `${ele.x}px`
+        // element.style.top = `${ele.y}px`
       })
       raf.current = window.requestAnimationFrame(run)
     }
@@ -80,7 +84,7 @@ const AnimationContent = (props: childProps) => {
   }
 
   return (
-    <div style={{ width: contentSize.width, height: contentSize.height, display: 'flex', flexDirection: 'row' }}>
+    <div style={{ width: contentSize.width, height: contentSize.height }}>
       {
         animationEles.map((item, i) => {
           return (

@@ -129,6 +129,7 @@ const Home: NextPage = ({initWords}) => {
         /> */}
         <AnimationContent
           contentSize={contentSize}
+          go={goto}
         /> 
       </div>
     )
