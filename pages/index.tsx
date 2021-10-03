@@ -135,6 +135,16 @@ const Home: NextPage = ({initWords}) => {
         {backgroundContent()}
         {wordCloudContent()}
       </main>
+      <style global jsx>{`
+        html,
+        body,
+        body > div:first-child,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   )
 }

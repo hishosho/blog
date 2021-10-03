@@ -8,13 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #666;
 }
 h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size:100%; }
-html,
-body,
-body > div:first-child,
-div#__next,
-div#__next > div {
-  height: 100%;
-}
+
 ::-webkit-scrollbar {
   width: 0;
 }

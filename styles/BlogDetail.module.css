@@ -1,5 +1,6 @@
 .detailWraper {
   position: relative;
+  background-color: #FFFFCD;
 }
 .header {
   background-color: #87CEEB;
@@ -31,7 +32,6 @@
   color: #666;
 }
 .main {
-  background-color: #FFFFCD;
   padding: 100px 40px 36px 40px;
   display: flex;
   flex-direction: row-reverse;
@@ -88,5 +88,17 @@
   width: 0;
   border: 10px solid transparent;
   border-bottom: 15px solid #fafafa;
-  transform: translateY(0);
+  
+}
+.toTop:hover .arrow {
+  animation: rotateArrow 1s ease-in-out;
+  
+}
+@keyframes rotateArrow {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
