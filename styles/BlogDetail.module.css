@@ -2,10 +2,10 @@
   position: relative;
 }
 .header {
-  background-color: #FFB391;
+  background-color: #87CEEB;
 }
 .navigation {
-  background-color: #FFB391;
+  background-color: #87CEEB;
   padding: 10px 0 10px 10%;
   width: 100%;
   position: fixed;
@@ -19,17 +19,19 @@
   padding: 0 40px 36px 40px;
 }
 .title {
-  font-weight: 400;
+  font-weight: 500;
   font-size: calc(2rem);
   padding-top: 116px;
   margin-bottom: 20px;
+  color: #666;
 }
 .desc {
   font-size: calc(2rem);
   padding-top: 0;
+  color: #666;
 }
 .main {
-  background-color: #fff;
+  background-color: #FFFFCD;
   padding: 100px 40px 36px 40px;
   display: flex;
   flex-direction: row-reverse;
@@ -37,24 +39,25 @@
   align-items: flex-start;
   max-width: 1100px;
   margin: 0 auto;
+  color: #999;
 }
 .catalogueTitle {
   margin-bottom: 16px;
   font-size: 1rem;
   font-weight: 500;
-  color: #666;
+  color: #999;
 }
 .catalogueItem {
-  color: #666;
+  color: #999;
   font-size: 1rem;
   margin-bottom: 10px;
 }
 .catalogueItemLink {
   text-decoration: none;
-  color: #666;
+  color: #999;
 }
 .catalogueItemLink:hover {
-  color: #ff9491;
+  color: #87CEEB;
 }
 .menu {
   display: none;

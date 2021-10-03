@@ -166,8 +166,8 @@ const BlogDetail = (props: any) => {
       >
         <WaterCanvas
           size={{ width: 60, height: 60 }}
-          background='rgb(185, 225, 255, .7)'
-          borderColor='rgb(185, 225, 255, .5)'
+          background='rgb(255, 192, 203, .7)'
+          borderColor='rgb(255, 192, 203, .5)'
         />
         <div className={styles.arrow}></div>
       </div>
