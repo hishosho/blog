@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef, useState } from 'react'
 import SunLogo from '../../components/common/SunLogo'
 import Router from 'next/router'
+import styles from './Animation.module.css'
 
 interface AnimationEle {
   id: string;
@@ -95,6 +96,7 @@ const AnimationContent = (props: childProps) => {
     <div
       style={{ ...style }}
       onClick={() => goto(item)}
+      className={item.path ? styles.nav : ''}
     >
       {item.text}
     </div>
@@ -119,8 +121,8 @@ const AnimationContent = (props: childProps) => {
     <div
       style={{ 
         width: contentSize.width,
-        height: contentSize.height, 
-        margin: `0 auto;`
+        height: contentSize.height,
+        margin: `0 auto`
       }}>
       {
         animationEles.map((item, i) => {

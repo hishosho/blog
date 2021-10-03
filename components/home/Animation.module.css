@@ -1,0 +1,6 @@
+.nav {
+  transition: transform 1s;
+}
+.nav:hover {
+  transform: scale(1.5);
+}
