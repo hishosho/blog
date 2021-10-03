@@ -7,6 +7,7 @@ interface AnimationEle {
   type: string;
   text?: string;
   path?: string;
+  padding?: number;
   x: number;
   y: number;
   vx: number;
@@ -28,20 +29,21 @@ const AnimationContent = (props: childProps) => {
 
   const raf = useRef<any>(null)
   const [animationEles] = useState<AnimationEle[]>([
-    {id: 'sun_1', type: 'sun', x: 0, y: 0, vx: 3, vy: 1.5},
+    {id: 'sun_1', type: 'sun', x: 0, y: 0, vx: -3, vy: -1.5},
     {id: 'sun_2', type: 'sun', x: 90, y: 100, vx: 2.5, vy: 2.5}, 
-    {id: 'sun_3', type: 'sun', x: 120, y: 100, vx: 3, vy: 3}, 
-    {id: 'sun_4', type: 'sun', x: 300, y: 100, vx: 2.5, vy: 3.5}, 
-    {id: 'sun_5', type: 'sun', x: 400, y: 100, vx: 1.8, vy: 2},
-    {id: 'text_1', type: 'text', text: 'hello!', x: 200, y: 0, vx: 2.2, vy: 3},
-    {id: 'about', type: 'text', text: 'About', path: '/about', x: 0, y: 100, vx: 1.3, vy: 2},
-    {id: 'blog', type: 'text', text: 'Blog', path: '/blog', x: 300, y: 200, vx: 1, vy: 1.8}
+    {id: 'sun_3', type: 'sun', x: 120, y: 100, vx: -1, vy: -3}, 
+    {id: 'sun_4', type: 'sun', x: 300, y: 100, vx: 3, vy: 4}, 
+    {id: 'sun_5', type: 'sun', x: 400, y: 100, vx: -1.8, vy: -2},
+    {id: 'text_1', type: 'text', text: 'welcome!',  padding: 400, x: 200, y: 0, vx: 2.2, vy: 3},
+    {id: 'text_2', type: 'text', text: `shosho's site!`, padding: 400, x: 200, y: 200, vx: 2.2, vy: 3},
+    {id: 'about', type: 'text', text: 'About', path: '/about', x: 0, y: 100, vx: -0.5, vy: -0.5},
+    {id: 'blog', type: 'text', text: 'Blog', path: '/blog', x: 300, y: 200, vx: 0.5, vy: 0.5}
   ])
   
   const run = useCallback(() => {
     if (raf.current !== void 0) {
       animationEles.map((ele) => {
-        if (ele.x + ele.vx > contentSize.width - 200 || ele.x + ele.vx <=0) {
+        if (ele.x + ele.vx > contentSize.width - (ele.padding || 200) || ele.x + ele.vx <=0) {
           ele.vx = -ele.vx
         }
 
@@ -80,11 +82,15 @@ const AnimationContent = (props: childProps) => {
     const style = {
       fontSize: '80px',
       fontWeight: 500,
-      color: '#666',
+      color: '#999',
       fontFamily: 'fantasy',
-      cursor: ''
+      cursor: '',
+      textShadow: '#fff 3px 0 0, #fff 0 3px 0, #fff -3px 0 0, #fff 0 -3px 0'
     }
-    if (item.path) style.cursor = 'pointer' 
+    if (item.path) {
+      style.cursor = 'pointer'
+      style.textShadow = '#fff 5px 0 0, #fff 0 5px 0, #fff -5px 0 0, #fff 0 -5px 0'
+    }
     return (
     <div
       style={{ ...style }}
