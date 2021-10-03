@@ -82,10 +82,9 @@ const Blog = (props: any) => {
         />
         <div 
           className={styles.navigation}
-          style={{background: `${isScroll ? '#FFB391' : ''}`}}>
+          style={{background: `${isScroll ? '#87CEEB' : ''}`}}>
           <Navigation
             list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
-            background='#FFB391'
             callBack={goto}
           />
         </div>

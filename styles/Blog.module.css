@@ -1,6 +1,6 @@
 .blogWrap {
   position: relative;
-  background-image: linear-gradient(#fdff91, #fff);
+  background-color: #FFFFCD;
 }
 .navigation {
   z-index: 1;
@@ -10,6 +10,7 @@
   width: 100%;
 }
 .main {
+  background-color: #FFFFCD;
   width: 60%;
   margin: 20px auto;
   display: grid;
@@ -33,7 +34,7 @@
   grid-area: popular;
 }
 .title {
-  color: #A0937D;
+  color: #999;
   font-weight: bold;
   padding: 30px 0;
   font-size: calc(1.375rem);

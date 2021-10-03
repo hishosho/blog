@@ -97,7 +97,7 @@ const Sun = (prop: childProp) => {
     }
     
     canvasCtx.save()
-    canvasCtx.lineWidth = 10
+    canvasCtx.lineWidth = 20
     canvasCtx.lineCap = 'round'
     canvasCtx.strokeStyle = color
     for (let i = 0; i < 12; i++){
@@ -135,7 +135,7 @@ const Sun = (prop: childProp) => {
       ref={sunRef}
       height={size.height}
       width={size.width}
-      style={{backgroundColor: '#FFB391'}}
+      style={{backgroundColor: '#87CEEB'}}
       onMouseMove={move}
     ></canvas>
   )

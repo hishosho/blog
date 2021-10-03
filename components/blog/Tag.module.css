@@ -1,5 +1,5 @@
 .main {
-  background-color: #FFDCB8;
+  background-color: #FFC0CB;
   display: inline-block;
   border-radius: 8px;
   height: 32px;
@@ -13,7 +13,7 @@
  
 }
 .active {
-  background-color: #FFABE1;
+  background-color: #fd78ce;
 }
 .main:hover {
   cursor: pointer;
