@@ -1,5 +1,6 @@
 .blogWrap {
   position: relative;
+  min-height: 100vh;
   background-color: #FFFFCD;
 }
 .navigation {
