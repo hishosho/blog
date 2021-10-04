@@ -8,6 +8,7 @@ import styles from '../../styles/Blog.module.css'
 import Router from 'next/router'
 import BlogService from '../../services/BlogService'
 import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
+import WaterCanvas from '../../components/blog/WaterCanvas'
 
 interface Blog {
   id: number;
@@ -28,6 +29,7 @@ const Blog = (props: any) => {
   const [blogTags, setBlogTags] = useState<Tag[]>(props.blogTags)
   const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
   const [isScroll, setIsScroll] = useState<boolean>(false)
+  const [isShowToTop, setIsShowToTop] = useState<boolean>(false)
 
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
@@ -49,6 +51,21 @@ const Blog = (props: any) => {
     Router.push(`/${path}`)
   }, [])
 
+  const toTop = () => {
+    return (
+      <div className={styles.toTop}
+        onClick={() => document.documentElement.scrollTop = 0}
+      >
+        <WaterCanvas
+          size={{ width: 60, height: 60 }}
+          background='rgb(255, 192, 203, .7)'
+          borderColor='rgb(255, 192, 203, .5)'
+        />
+        <div className={styles.arrow}></div>
+      </div>
+    )
+  }
+
   useEffect(() => {
     const resize = () => {
       const width: number = blogRef.current && blogRef.current.scrollWidth || 0
@@ -61,6 +78,7 @@ const Blog = (props: any) => {
 
     const scoll = () => {
       setIsScroll(document.documentElement.scrollTop > 220)
+      setIsShowToTop(document.documentElement.scrollTop > 600)
     }
 
     window.addEventListener('scroll', scoll)
@@ -137,6 +155,7 @@ const Blog = (props: any) => {
           </ul>
         </section>
       </main>
+      {isShowToTop && toTop()}
     </div>
   )
 }

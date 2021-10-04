@@ -121,3 +121,31 @@
   }
 }
 
+.toTop {
+  cursor: pointer;
+  position: fixed;
+  right: 10%;
+  bottom: 10vh;
+}
+.arrow {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  height: 0;
+  width: 0;
+  border: 10px solid transparent;
+  border-bottom: 15px solid #fafafa;
+  
+}
+.toTop:hover .arrow {
+  animation: rotateArrow 1s ease-in-out;
+  
+}
+@keyframes rotateArrow {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
