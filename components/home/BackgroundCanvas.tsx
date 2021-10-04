@@ -55,6 +55,8 @@ const BackgroundCanvas = (props: ChildProps) => {
     // 重新渲染需要清空之前的绘画动作
     window.clearTimeout(bgTimeoutRef.current)
 
+    canvasCtx.clearRect(0, 0, canvasSize.width, canvasSize.height)
+
     // 终端适配：根据页面宽高比确定横纵弧形展示数量
     const arcNum: ArcQuantity = {
       width: canvasSize.height / canvasSize.width > 0.75 ? 5 : 7,
