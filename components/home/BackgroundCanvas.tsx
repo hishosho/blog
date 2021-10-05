@@ -52,15 +52,17 @@ const BackgroundCanvas = (props: ChildProps) => {
    * 绘制背景
    */
   const draw = useCallback((canvasCtx) => {
-    // 重新渲染需要清空之前的绘画动作
-    window.clearTimeout(bgTimeoutRef.current)
-
     canvasCtx.clearRect(0, 0, canvasSize.width, canvasSize.height)
 
     // 终端适配：根据页面宽高比确定横纵弧形展示数量
-    const arcNum: ArcQuantity = {
-      width: canvasSize.height / canvasSize.width > 0.75 ? 5 : 7,
-      height: canvasSize.height / canvasSize.width > 0.75 ? 7 : 3
+    // const arcNum: ArcQuantity = {
+    //   width: canvasSize.height / canvasSize.width > 0.75 ? 5 : 7,
+    //   height: canvasSize.height / canvasSize.width > 0.75 ? 7 : 3
+    // }
+    const isMobile: boolean = window.matchMedia('(max-width: 1024px)').matches
+     const arcNum: ArcQuantity = {
+      width: isMobile ? 5 : 7,
+      height:isMobile ? 7 : 3
     }
 
     // 变换颜色

@@ -45,7 +45,7 @@ const Home: NextPage = ({initWords}) => {
 
     setScreenSize({ width, height })
 
-    const isMobile: boolean = window.matchMedia('(max-width: 768px)').matches
+    const isMobile: boolean = window.matchMedia('(max-width: 1024px)').matches
 
     const arcNum: TerminalInfo = {
       width: isMobile ? 5 : 7,
