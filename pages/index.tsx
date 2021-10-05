@@ -55,6 +55,8 @@ const Home: NextPage = ({initWords}) => {
 
     const paddingW = width / arcNum.width / 2,
           paddingH = (height - paddingW * 2) / arcNum.height / 2
+
+    console.log('padding-w=', paddingW)
     
     setBgElementSize({ width: paddingW, height: paddingH })
     setContentSize({ width: width - paddingH * (arcNum.isMobile ? 4 : 2),

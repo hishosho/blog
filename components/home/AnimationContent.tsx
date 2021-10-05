@@ -44,7 +44,8 @@ const AnimationContent = (props: childProps) => {
   const run = useCallback(() => {
     if (raf.current !== void 0) {
       animationEles.map((ele) => {
-        if (ele.x + ele.vx > contentSize.width - (ele.padding || 200) || ele.x + ele.vx <=0) {
+        const element: any  = document.getElementById(ele.id)
+        if (ele.x + ele.vx > contentSize.width - element.offsetWidth || ele.x + ele.vx <=0) {
           ele.vx = -ele.vx
         }
 
@@ -53,9 +54,7 @@ const AnimationContent = (props: childProps) => {
         }
         ele.x = ele.x + ele.vx
         ele.y = ele.y + ele.vy
-
-        const element: any  = document.getElementById(ele.id)
-
+        
         element.style.transform = `translate(${ele.x}px, ${ele.y}px)`
 
         // element.style.left = `${ele.x}px`
@@ -80,8 +79,9 @@ const AnimationContent = (props: childProps) => {
   }
 
   const textContent = (item: AnimationEle) => {
+    const baseFontSize = Math.round(contentSize.width / 20)
     const style = {
-      fontSize: '80px',
+      fontSize: `${baseFontSize}px`,
       fontWeight: 500,
       color: '#999',
       fontFamily: 'fantasy',
@@ -104,13 +104,14 @@ const AnimationContent = (props: childProps) => {
   }
 
   const subContent = (item: AnimationEle) => {
+    const baseSize = Math.round(contentSize.width / 10)
     if (item.type === 'text') {
       return textContent(item)
     } else {
       return (
         <SunLogo
-          size={{ width: 300, height: 300, r: 300 / 4 }}
-          translate={{ x: 300 / 2, y: 300 / 2 }}
+          size={{ width: baseSize, height: baseSize, r: baseSize / 4 }}
+          translate={{ x: baseSize / 2, y: baseSize / 2 }}
           color="#FFE194"
         />
       )
@@ -122,7 +123,8 @@ const AnimationContent = (props: childProps) => {
       style={{ 
         width: contentSize.width,
         height: contentSize.height,
-        margin: `0 auto`
+        margin: `0 auto`,
+        position: 'relative'
       }}>
       {
         animationEles.map((item, i) => {
