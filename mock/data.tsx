@@ -112,7 +112,7 @@ export const blogs = [
   { id: 103, title: '[React]基础学习', desc: 'React基本用法介绍' },
   { id: 104, title: '[Vue]基础学习', desc: 'Vue基本用法介绍' },
   { id: 105, title: '[Vue-router]基础学习', desc: 'Vue-router基本用法介绍' },
-  { id: 16, title: '[React]基础学习', desc: 'React基本用法介绍' }
+  { id: 160, title: '[React]基础学习', desc: 'React基本用法介绍' }
 ]
 
 export const propulerBlogs = [

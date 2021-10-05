@@ -2,10 +2,6 @@ import { createContext, useReducer } from 'react'
 import reducer from './reducer'
 
 const initState = {
-  clientSize: {
-    width: 0,
-    height: 0
-  },
   isMobile: false
 }
 

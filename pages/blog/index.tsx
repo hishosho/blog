@@ -9,6 +9,9 @@ import Router from 'next/router'
 import BlogService from '../../services/BlogService'
 import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
 import WaterCanvas from '../../components/blog/WaterCanvas'
+import useClientType from '../../hooks/useClientType'
+
+
 
 interface Blog {
   id: number;
@@ -30,7 +33,7 @@ const Blog = (props: any) => {
   const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
   const [isScroll, setIsScroll] = useState<boolean>(false)
   const [isShowToTop, setIsShowToTop] = useState<boolean>(false)
-
+  const { isMobile, resetClientType } = useClientType()
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
     setTimeout(() => {
@@ -70,6 +73,7 @@ const Blog = (props: any) => {
     const resize = () => {
       const width: number = blogRef.current && blogRef.current.scrollWidth || 0
       setWidth(width)
+      resetClientType()
     }
 
     resize()
@@ -93,19 +97,19 @@ const Blog = (props: any) => {
     <div 
       ref={blogRef}
       className={styles.blogWrap}>
-        <Sun
+        {!isMobile && (<Sun
           color="#FFE194"
           size={{width: width, height: 250, r: 250 }}
           translate={{ x: width / 2, y: 250 * 1.5 }}
-        />
-        <div 
+        />)}
+        {!isMobile && (<div
           className={styles.navigation}
           style={{background: `${isScroll ? '#87CEEB' : ''}`}}>
           <Navigation
             list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
             callBack={goto}
           />
-        </div>
+        </div>)}
       <main className={styles.main}>
        <section className={styles.list}>
          {

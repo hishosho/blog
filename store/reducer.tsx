@@ -7,8 +7,8 @@ interface Action {
 }
 function reducer (state: object, action: Action): object | undefined {
   switch (action.type) {
-    case Type.SET_CLIENT_SIZE:
-      return commit[Type.SET_CLIENT_SIZE](state, action.payload)
+    case Type.SET_IS_MOBILE:
+      return commit[Type.SET_IS_MOBILE](state, action.payload)
     default:
       console.error('error reducer:', action.type )
       return void 0
