@@ -23,7 +23,6 @@ interface Size {
 interface TerminalInfo {
   width: number;
   height: number;
-  isMobile: boolean;
 }
 
 const Home: NextPage = ({initWords}) => {
@@ -49,19 +48,14 @@ const Home: NextPage = ({initWords}) => {
 
     const arcNum: TerminalInfo = {
       width: isMobile ? 5 : 7,
-      height: isMobile ? 7 : 3,
-      isMobile
+      height: isMobile ? 7 : 3
     }
 
-    const paddingW = width / arcNum.width / 2,
-          paddingH = (height - paddingW * 2) / arcNum.height / 2
-
-    console.log('padding-w=', paddingW)
+    const paddingW = width / arcNum.width / 2
+    const paddingH = (height - paddingW * 2) / arcNum.height / 2
     
     setBgElementSize({ width: paddingW, height: paddingH })
-    setContentSize({ width: width - paddingH * (arcNum.isMobile ? 4 : 2),
-                      height: height - paddingW * ((arcNum.isMobile ? 4 : 2))
-                  })
+    setContentSize({ width: width - paddingH * 2, height: height - paddingW * 2 })
   }, [dispatch])
 
   const updateWordCloud = useCallback(() => {

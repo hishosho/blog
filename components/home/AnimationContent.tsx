@@ -35,8 +35,8 @@ const AnimationContent = (props: childProps) => {
     {id: 'sun_3', type: 'sun', x: 120, y: 100, vx: -1, vy: -3}, 
     {id: 'sun_4', type: 'sun', x: 300, y: 100, vx: 3, vy: 4}, 
     {id: 'sun_5', type: 'sun', x: 400, y: 100, vx: -1.8, vy: -2},
-    {id: 'text_1', type: 'text', text: 'welcome!',  padding: 400, x: 200, y: 0, vx: 2.2, vy: 3},
-    {id: 'text_2', type: 'text', text: `shosho's site!`, padding: 400, x: 200, y: 200, vx: 2.2, vy: 3},
+    {id: 'text_1', type: 'text', text: 'welcome!', x: 200, y: 0, vx: 2.2, vy: 3},
+    {id: 'text_2', type: 'text', text: `shosho's site!`, x: 200, y: 200, vx: 2.2, vy: 3},
     {id: 'about', type: 'text', text: 'About', path: '/about', x: 0, y: 100, vx: -0.5, vy: -0.5},
     {id: 'blog', type: 'text', text: 'Blog', path: '/blog', x: 300, y: 200, vx: 0.5, vy: 0.5}
   ])
