@@ -8,13 +8,9 @@ import WordCloudD3 from '../components/home/WordCloudD3'
 import AnimationContent from '../components/home/AnimationContent'
 
 import { debounce } from '../util/index'
-
-import Type from '../store/reducerType'
-import {Context} from '../store'
-
 import HomeService from '../services/HomeService'
 import { initWords } from '../mock/data'
-
+import useClientType from '../hooks/useClientType'
 
 interface Size {
   width: number;
@@ -26,11 +22,11 @@ interface TerminalInfo {
 }
 
 const Home: NextPage = ({initWords}) => {
-  const { state, dispatch } = useContext<any>(Context)
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
   const [changeWordFlag, setChangeWordFlag] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
   const timer = useRef<any>(null)
   const wordsRef = useRef<any>(null)
 
@@ -40,15 +36,15 @@ const Home: NextPage = ({initWords}) => {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    dispatch({ type: Type.SET_CLIENT_SIZE, payload: { width, height } })
-
     setScreenSize({ width, height })
 
-    const isMobile: boolean = window.matchMedia('(max-width: 1024px)').matches
+    const mobileFlag: boolean = window.matchMedia('(max-width: 1024px)').matches
+
+    setIsMobile(mobileFlag)
 
     const arcNum: TerminalInfo = {
-      width: isMobile ? 5 : 7,
-      height: isMobile ? 7 : 3
+      width: mobileFlag ? 5 : 7,
+      height: mobileFlag ? 7 : 3
     }
 
     const paddingW = width / arcNum.width / 2
@@ -56,7 +52,7 @@ const Home: NextPage = ({initWords}) => {
     
     setBgElementSize({ width: paddingW, height: paddingH })
     setContentSize({ width: width - paddingH * 2, height: height - paddingW * 2 })
-  }, [dispatch])
+  }, [])
 
   const updateWordCloud = useCallback(() => {
     // word cloud自动更新
@@ -119,6 +115,7 @@ const Home: NextPage = ({initWords}) => {
         /> */}
         <AnimationContent
           contentSize={contentSize}
+          isMobile={isMobile}
         /> 
       </div>
     )
