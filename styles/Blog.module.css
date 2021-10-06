@@ -10,6 +10,15 @@
   padding: 10px 0 10px 10%;
   width: 100%;
 }
+.smallNav {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  right: 0;
+  height: 100%;
+  padding: 5% 5% 0 0;
+  top: 0;
+}
 .main {
   background-color: #FFFFCD;
   width: 60%;
@@ -118,6 +127,12 @@
     width: 90%;
     margin: 20px auto;
     display: flex;
+  }
+  .navigation {
+    display: none;
+  }
+  .smallNav {
+    display: block;
   }
 }
 

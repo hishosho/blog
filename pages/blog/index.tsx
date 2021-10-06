@@ -9,9 +9,7 @@ import Router from 'next/router'
 import BlogService from '../../services/BlogService'
 import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
 import WaterCanvas from '../../components/blog/WaterCanvas'
-import useClientType from '../../hooks/useClientType'
-
-
+import SmallNavigation from '../../components/common/SmallNavigation'
 
 interface Blog {
   id: number;
@@ -33,7 +31,7 @@ const Blog = (props: any) => {
   const [popularBlogs] = useState<Blog[]>(props.propulerBlogs)
   const [isScroll, setIsScroll] = useState<boolean>(false)
   const [isShowToTop, setIsShowToTop] = useState<boolean>(false)
-  const { isMobile, resetClientType } = useClientType()
+  const [onNavigation, setOnNavigation] = useState<boolean>(false)
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
     setTimeout(() => {
@@ -73,7 +71,6 @@ const Blog = (props: any) => {
     const resize = () => {
       const width: number = blogRef.current && blogRef.current.scrollWidth || 0
       setWidth(width)
-      resetClientType()
     }
 
     resize()
@@ -93,23 +90,38 @@ const Blog = (props: any) => {
     }
     
   }, [])
+
+  const smallNav = () => {
+    return (
+      <div
+        className={styles.smallNav}
+        onMouseEnter={() => setOnNavigation(true)}
+        onMouseLeave={() => setOnNavigation(false)}
+      >
+        <SmallNavigation
+          enter={onNavigation}
+        />
+      </div>
+    )
+  }
   return (
     <div 
       ref={blogRef}
       className={styles.blogWrap}>
-        {!isMobile && (<Sun
+        <Sun
           color="#FFE194"
           size={{width: width, height: 250, r: 250 }}
           translate={{ x: width / 2, y: 250 * 1.5 }}
-        />)}
-        {!isMobile && (<div
+        />
+        {smallNav()}
+        <div
           className={styles.navigation}
           style={{background: `${isScroll ? '#87CEEB' : ''}`}}>
           <Navigation
             list={[{id: 'home', name: 'home'}, {id: 'blog', name: 'blog'}, {id: 'about', name: 'about'}]}
             callBack={goto}
           />
-        </div>)}
+        </div>
       <main className={styles.main}>
        <section className={styles.list}>
          {
