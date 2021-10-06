@@ -26,6 +26,15 @@
   display: flex;
   flex-direction: row;
 }
+.smallNav {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  right: 0;
+  height: 100%;
+  padding: 5% 5% 0 0;
+  top: 0;
+}
 .titleWraper {
   margin: 0 auto;
   max-width: 1100px;
@@ -72,7 +81,7 @@
   color: #87CEEB;
 }
 .menu {
-  display: none;
+  display: block;
   width: 30%;
   padding-left: 50px;
   position: sticky;
@@ -81,8 +90,14 @@
   cursor: pointer;
 }
 
-@media (min-width: 1084px) {
+@media (max-width: 1024px) {
   .menu {
+    display: none;
+  }
+  .navigation {
+    display: none;
+  }
+  .smallNav {
     display: block;
   }
 }

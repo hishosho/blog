@@ -9,16 +9,31 @@ import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 import SunLogo from '../../components/common/SunLogo'
 import WaterCanvas from '../../components/blog/WaterCanvas'
+import SmallNavigation from '../../components/common/SmallNavigation'
 
 const BlogDetail = (props: any) => {
   const [articleContent, setArticleContent] = useState<string>('')
   const [catalogue, setCatalogue] = useState<any>([])
   const [isScroll, setIsScroll] = useState<boolean>(false)
+  const [onNavigation, setOnNavigation] = useState<boolean>(false)
   const title = () => {
     return (
       <div className={styles.titleWraper}>
         <div className={styles.title}>[Vue-router]基础学习</div>
         <div className={styles.desc}>Vue-router基本用法介绍</div>
+      </div>
+    )
+  }
+  const smallNav = () => {
+    return (
+      <div
+        className={styles.smallNav}
+        onMouseEnter={() => setOnNavigation(true)}
+        onMouseLeave={() => setOnNavigation(false)}
+      >
+        <SmallNavigation
+          enter={onNavigation}
+        />
       </div>
     )
   }
@@ -36,6 +51,7 @@ const BlogDetail = (props: any) => {
             callBack={goto}
           />
         </div>
+        {smallNav()}
         <div className={styles.header}>
           {title()}
         </div>
