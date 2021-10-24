@@ -24,7 +24,7 @@ interface Tag {
 }
 
 const Blog = (props: any) => {
-  const blogRef = useRef<HTMLDivElement>(null)
+  const blogRef = useRef<any>(null)
   const [width, setWidth] = useState<number>(0)
   const [blogList, setBlogList] = useState<Blog[]>(props.blogs)
   const [blogTags, setBlogTags] = useState<Tag[]>(props.blogTags)

@@ -21,16 +21,13 @@ interface TerminalInfo {
   height: number;
 }
 
-const Home: NextPage = ({initWords}) => {
+const Home: NextPage = () => {
   const [screenSize, setScreenSize] = useState<Size>({width: 0, height: 0})
   const [contentSize, setContentSize] = useState<Size>({width: 0, height: 0})
   const [bgElementSize, setBgElementSize] = useState<Size>({width: 0, height: 0})
   const [changeWordFlag, setChangeWordFlag] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const timer = useRef<any>(null)
-  const wordsRef = useRef<any>(null)
-
-  wordsRef.current = initWords
 
   const resize = useCallback(() => {
     const width = window.innerWidth
@@ -140,14 +137,6 @@ const Home: NextPage = ({initWords}) => {
       `}</style>
     </div>
   )
-}
-
-// TODO mock
-Home.getInitialProps = async () => {
-  const { success, data } = HomeService.words()
-  return {
-    initWords: initWords
-  }
 }
 
 export default Home

@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { markdownData } from '../../mock/data'
 import BlogService from '../../services/BlogService'
 import marked from 'marked'
-import hljs from 'highlight.js'
+import hljs from '../../util/highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 import SunLogo from '../../components/common/SunLogo'
 import WaterCanvas from '../../components/blog/WaterCanvas'
@@ -142,7 +142,6 @@ const BlogDetail = (props: any) => {
       gfm: true,
       pedantic: false,
       sanitize: false,
-      tables: true,
       breaks: false,
       smartLists: true,
       smartypants: false,

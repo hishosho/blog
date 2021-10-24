@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const result = (success: boolean, data: any, response: any) => {
-  success,
-  data,
+  success as any,
+  data as any,
   response
 }
 
