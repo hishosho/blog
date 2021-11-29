@@ -1,10 +1,15 @@
 import axios from 'axios'
 
 const result = (success: boolean, data: any, response: any) => {
-  success as any,
-  data as any,
-  response
+  return {
+    success: success,
+    data,
+    response
+  }
 }
+
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
+axios.defaults.withCredentials = true
 
 axios.interceptors.request.use((opt: any): any => {
   const headers = opt.headers || {}
@@ -23,7 +28,7 @@ axios.interceptors.request.use((opt: any): any => {
 
 axios.interceptors.response.use(
   (res: any) => {
-    return result(true, res.data.code === '0' ? res.data.body : res.data.message, res)
+    return result(res.data.code, res.data.code ? res.data.data : res.data.message, res)
   },
   (err) => {
     if (err.response && err.response.status === 404) {

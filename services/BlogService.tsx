@@ -2,7 +2,7 @@ import axios from './index'
 
 const BlogService = {
   getBlogDetail: (id: number) => axios({ url: '/', params: {id} }),
-  getBlogs: () => axios({ url: '/' }),
+  getBlogs: () => axios({ url: '/blogs' }),
   getPropulerBlogs: () => axios({ url: '/' }),
   getBlogTags: () => axios({ url: '/' }),
   getBlogsByTagId: (id: number) => axios({ url: '/', params: {id} }),

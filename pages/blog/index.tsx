@@ -7,7 +7,8 @@ import { debounce } from '../../util/index'
 import styles from '../../styles/Blog.module.css'
 import Router from 'next/router'
 import BlogService from '../../services/BlogService'
-import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
+//import { blogs, propulerBlogs, blogTags, someBlogList } from '../../mock/data'
+import { propulerBlogs, blogTags, someBlogList } from '../../mock/data'
 import WaterCanvas from '../../components/blog/WaterCanvas'
 import SmallNavigation from '../../components/common/SmallNavigation'
 
@@ -24,6 +25,7 @@ interface Tag {
 }
 
 const Blog = (props: any) => {
+  console.log('props=', props)
   const blogRef = useRef<any>(null)
   const [width, setWidth] = useState<number>(0)
   const [blogList, setBlogList] = useState<Blog[]>(props.blogs)
@@ -176,16 +178,18 @@ const Blog = (props: any) => {
   )
 }
 
-Blog.getInitialProps= async () => {
-  // const blogs = BlogService.getBlogs()
+Blog.getInitialProps = async () => {
+  const blogData = {}
+  const { success, data } = await BlogService.getBlogs()
+  if (success) {
+    blogData.blogs = data.rows
+  }
+  blogData.propulerBlogs = propulerBlogs
+  blogData.blogTags = blogTags
   // const propulerBlogs = BlogService.getPropulerBlogs()
   // const blogTags = BlogService.getBlogTags()
 
-  return {
-    blogs: blogs,
-    propulerBlogs: propulerBlogs,
-    blogTags: blogTags
-  }
+  return blogData
 }
 
 export default Blog
