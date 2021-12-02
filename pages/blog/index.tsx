@@ -25,7 +25,6 @@ interface Tag {
 }
 
 const Blog = (props: any) => {
-  console.log('props=', props)
   const blogRef = useRef<any>(null)
   const [width, setWidth] = useState<number>(0)
   const [blogList, setBlogList] = useState<Blog[]>(props.blogs)
@@ -125,7 +124,7 @@ const Blog = (props: any) => {
           />
         </div>
       <main className={styles.main}>
-       <section className={styles.list}>
+       {blogList && (<section className={styles.list}>
          {
            blogList.map(({ id, title, desc }) => (
             <div 
@@ -139,11 +138,10 @@ const Blog = (props: any) => {
             </div>)
            )
          }
-        </section>
+       </section>)}
         <section  className={styles.categories}>
           <div className={styles.title}>文章分类</div>
-            {
-              blogTags.map(({ id, name, isActive }) => (
+            { blogTags && blogTags.map(({ id, name, isActive }) => (
                   <Tag
                     key={id}
                     propClass={`${styles.tags} ${styles.tag}`}
@@ -155,7 +153,7 @@ const Blog = (props: any) => {
               )
             }
         </section>
-        <section className={styles.popular}>
+        {popularBlogs && (<section className={styles.popular}>
           <div className={styles.title}>热门文章</div>
           <ul className={styles.popularList}>
             {
@@ -171,7 +169,7 @@ const Blog = (props: any) => {
               )
             }
           </ul>
-        </section>
+        </section>)}
       </main>
       {isShowToTop && toTop()}
     </div>
@@ -179,15 +177,26 @@ const Blog = (props: any) => {
 }
 
 Blog.getInitialProps = async () => {
-  const blogData = {}
-  const { success, data } = await BlogService.getBlogs()
-  if (success) {
-    blogData.blogs = data.rows
+  const blogData = {
+    blogs: [],
+    propulerBlogs: [],
+    blogTags: []
   }
-  blogData.propulerBlogs = propulerBlogs
-  blogData.blogTags = blogTags
-  // const propulerBlogs = BlogService.getPropulerBlogs()
-  // const blogTags = BlogService.getBlogTags()
+  // 博客列表
+  const blogs: any = await BlogService.getBlogs()
+  if (blogs.success) {
+    blogData.blogs = blogs.data.rows
+  }
+  // 热门博客
+  const propulerBlogs: any = await BlogService.getPopularBlogs()
+  if (propulerBlogs.success) {
+    blogData.propulerBlogs = propulerBlogs.data.rows
+  }
+   // 博客标签
+  const blogTags: any = await BlogService.getBlogTags()
+  if (blogTags.success) {
+    blogData.blogTags = blogTags.data.rows
+  }
 
   return blogData
 }

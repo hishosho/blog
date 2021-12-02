@@ -8,7 +8,7 @@ const result = (success: boolean, data: any, response: any) => {
   }
 }
 
-axios.defaults.baseURL = 'http://127.0.0.1:3000'
+axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? '/api' : ''
 axios.defaults.withCredentials = true
 
 axios.interceptors.request.use((opt: any): any => {

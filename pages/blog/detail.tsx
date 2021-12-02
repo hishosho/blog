@@ -19,8 +19,8 @@ const BlogDetail = (props: any) => {
   const title = () => {
     return (
       <div className={styles.titleWraper}>
-        <div className={styles.title}>[Vue-router]基础学习</div>
-        <div className={styles.desc}>Vue-router基本用法介绍</div>
+        <div className={styles.title}>{props.detail.title}</div>
+        <div className={styles.desc}>{props.detail.desc}</div>
       </div>
     )
   }
@@ -218,9 +218,10 @@ const BlogDetail = (props: any) => {
 }
 
 BlogDetail.getInitialProps = async (ctx: any) => {
-  // const { success, data } = BlogService.getBlogDetail(ctx.query.id)
+  const { success, data }: any = await BlogService.getBlogDetail(ctx.query.id)
+  let detail = success ? data : {}
   return {
-    detail: markdownData
+    detail
   }
 }
 
