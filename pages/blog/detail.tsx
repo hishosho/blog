@@ -75,7 +75,7 @@ const BlogDetail = (props: any) => {
         </h2>
         <ul>
           {
-            catalogue.map((item: any, i: number) => {
+            catalogue && catalogue.map((item: any, i: number) => {
               return (
                 <li
                   style={{ paddingLeft: item.level * 10 }}
@@ -112,7 +112,7 @@ const BlogDetail = (props: any) => {
           className={styles.main}
         >
           {catalogueHtml()}
-          <article>
+          <article className={styles.article}>
             <div
               dangerouslySetInnerHTML={{ __html: articleContent }}
             >
@@ -124,8 +124,8 @@ const BlogDetail = (props: any) => {
   }
 
   const buildCatalogue = useCallback(() => {
-    const tiitleArr = props.detail.content.match(/(#{1,5})\s.*\n/g)
-    const navArr = tiitleArr.map((item: any) => ({
+    const titleArr = props.detail.content.match(/(#{1,5})\s.*\n/g)
+    const navArr = titleArr && titleArr.map((item: any) => ({
       content: item.replace(/(#{1,5}\s)|(\n)/g, ''),
       level: item.match(/#{1,5}/)[0].length
     }))
@@ -213,6 +213,16 @@ const BlogDetail = (props: any) => {
       {detailHeader()}
       {content()}
       {isScroll && toTop()}
+      <style global jsx>{`
+        html,
+        body,
+        body > div:first-child,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+          overflow-x: hidden;
+        }
+      `}</style>
     </div>
   )
 }

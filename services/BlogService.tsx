@@ -1,7 +1,7 @@
 import axios from './index'
 
 const BlogService = {
-  getBlogDetail: (id: number) => axios({ url: `/blogs/blogDetail`, params: { id } }),
+  getBlogDetail: (id: number) => axios({ url: `/blogs/blog/${id}`, params: { id } }),
   getBlogs: () => axios({ url: '/blogs/publishedBlogs' }),
   getPopularBlogs: () => axios({ url: '/blogs/popular' }),
   getBlogTags: () => axios({ url: '/tags' }),

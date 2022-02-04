@@ -126,13 +126,13 @@ const Blog = (props: any) => {
       <main className={styles.main}>
        {blogList && (<section className={styles.list}>
          {
-           blogList.map(({ id, title, desc }) => (
+           blogList.map(({ _id, title, desc }) => (
             <div 
               className={styles.card}
-              key={id}
-              onClick={() => Router.push(`/blog/detail?id=${id}`)}>
+              key={_id}
+              onClick={() => Router.push(`/blog/detail?id=${_id}`)}>
               <BlogCard
-                id={id}
+                id={_id}
                 title={title}
                 desc={desc}/>
             </div>)
@@ -141,13 +141,13 @@ const Blog = (props: any) => {
        </section>)}
         <section  className={styles.categories}>
           <div className={styles.title}>文章分类</div>
-            { blogTags && blogTags.map(({ id, name, isActive }) => (
+            { blogTags && blogTags.map(({ _id, name, isActive }) => (
                   <Tag
-                    key={id}
+                    key={_id}
                     propClass={`${styles.tags} ${styles.tag}`}
                     name={name}
                     isActive={isActive}
-                    changeState={(state: any) => changeState(id, state)}
+                    changeState={(state: any) => changeState(_id, state)}
                   />
                 )
               )
@@ -157,11 +157,11 @@ const Blog = (props: any) => {
           <div className={styles.title}>热门文章</div>
           <ul className={styles.popularList}>
             {
-              popularBlogs.map(({ id, title }) => (
+              popularBlogs.map(({ _id, title }) => (
                   <li
-                    key={id}
+                    key={_id}
                     className={styles.popularBlog}
-                    onClick={() => Router.push(`/blog/detail?id=${id}`)}
+                    onClick={() => Router.push(`/blog/detail?id=${_id}`)}
                   >
                     { title }
                   </li>
@@ -185,17 +185,17 @@ Blog.getInitialProps = async () => {
   // 博客列表
   const blogs: any = await BlogService.getBlogs()
   if (blogs.success) {
-    blogData.blogs = blogs.data.rows
+    blogData.blogs = blogs.data
   }
   // 热门博客
   const propulerBlogs: any = await BlogService.getPopularBlogs()
   if (propulerBlogs.success) {
-    blogData.propulerBlogs = propulerBlogs.data.rows
+    blogData.propulerBlogs = propulerBlogs.data
   }
    // 博客标签
   const blogTags: any = await BlogService.getBlogTags()
   if (blogTags.success) {
-    blogData.blogTags = blogTags.data.rows
+    blogData.blogTags = blogTags.data
   }
 
   return blogData

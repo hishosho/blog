@@ -35,6 +35,11 @@
   padding: 5% 5% 0 0;
   top: 0;
 }
+
+.article {
+  width: 70%;
+}
+
 .titleWraper {
   margin: 0 auto;
   max-width: 1100px;
@@ -93,6 +98,9 @@
 @media (max-width: 1024px) {
   .menu {
     display: none;
+  }
+  .article {
+    width: 100%;
   }
   .navigation {
     display: none;
