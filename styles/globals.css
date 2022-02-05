@@ -5,7 +5,6 @@ li,
 h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
-  color: #666;
 }
 h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size:100%; }
 
@@ -28,7 +27,7 @@ html {
 .title-anchor {
   font-size: calc(1.5rem);
   color: #666;
-  margin-bottom: 46px;
+  margin-bottom: 30px;
 }
 
 .detailed-content{
@@ -37,7 +36,7 @@ html {
 }
 pre{
   display: block;
-  background-color:#f3f3f3;
+  background-color:#ffedbc;
    padding: .5rem !important;
    overflow-y: auto;
    font-weight: 300;
@@ -55,14 +54,13 @@ pre >code{
 }
 code {
   display: inline-block ;
-  background-color:#f3f3f3;
-  border:1px solid #fdb9cc;
+  background-color:#ffedbc;
   border-radius:3px;
   font-size: 20px;
   padding-left: 5px;
   padding-right: 5px;
   color:#4f4f4f;
-  margin: 0px 3px;
+  margin: 4px 3px;
 
 }
 
@@ -70,7 +68,7 @@ code {
   color:rgb(30, 144, 255) !important;
 }
 a {
-  color:rgb(30, 144, 255);
+  color:rgb(104 75 254);
 }
 .nav-title{
   text-align: center;
@@ -102,3 +100,11 @@ iframe{
   --text-hover-color: #4bb6e0;
 }
 
+blockquote {
+  background: #f6ff79;
+  border-left: 10px solid #ee8247;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  color: #f46e0b;
+
+}
