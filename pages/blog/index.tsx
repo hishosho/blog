@@ -13,13 +13,13 @@ import WaterCanvas from '../../components/blog/WaterCanvas'
 import SmallNavigation from '../../components/common/SmallNavigation'
 
 interface Blog {
-  id: number;
+  _id: number;
   title: string;
   desc: string;
 }
 
 interface Tag {
-  id: number;
+  _id: number;
   name: string;
   isActive: boolean;
 }
@@ -35,16 +35,28 @@ const Blog = (props: any) => {
   const [onNavigation, setOnNavigation] = useState<boolean>(false)
   // TODO useCallback 待学习知识点
   const changeState = useCallback((id: number, state: boolean) => {
-    setTimeout(() => {
-      // const updateState = await BlogService.updateBlogTagState({id, state})
+    setTimeout(async () => {
       const newTagList = blogTags.concat()
+      // 分类标签单选，选中再点击为取消选中。
       newTagList.map(tag => {
-        if (tag.id === id) {
-          tag.isActive = state
+        if (tag._id === id) {
+          tag.isActive = !tag.isActive
+        } else {
+          tag.isActive = false
         }
       })
+
+      let selectedTagId: number = -1
+      newTagList.map(tag => {
+        if (tag.isActive) {
+          selectedTagId = tag._id
+          return 
+        }
+      })
+
+      const { success, data }: any = await BlogService.getBlogsByTagId(selectedTagId)
       setBlogTags(newTagList)
-      setBlogList(someBlogList)
+      if (success) setBlogList(data)
     }, 200)
   }, [blogTags])
 

@@ -5,7 +5,7 @@ const BlogService = {
   getBlogs: () => axios({ url: '/blogs/publishedBlogs' }),
   getPopularBlogs: () => axios({ url: '/blogs/popular' }),
   getBlogTags: () => axios({ url: '/tags' }),
-  getBlogsByTagId: (data: number[]) => axios({ url: '/blogs/publishBlogsByTags', params: data, method: 'post' }),
+  getBlogsByTagId: (tagId: number) => axios({ url: '/blogs/publishedBlogsByTagId', params: { tagId } }),
   updateBlogTagState: ({ id, state }: {id: number, state: boolean}) => axios({ url: '/', params: { id, state } }),
 }
 
