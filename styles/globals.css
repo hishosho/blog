@@ -26,7 +26,7 @@ html {
 
 .title-anchor {
   font-size: calc(1.5rem);
-  color: #666;
+  color: #995314;
   margin-bottom: 30px;
 }
 
@@ -68,7 +68,8 @@ code {
   color:rgb(30, 144, 255) !important;
 }
 a {
-  color:rgb(104 75 254);
+  color:#f7797d;
+  text-decoration: none;
 }
 .nav-title{
   text-align: center;
@@ -101,10 +102,10 @@ iframe{
 }
 
 blockquote {
-  background: #f6ff79;
-  border-left: 10px solid #ee8247;
+  background: #f9ffad;
+  border-left: 10px solid #ffb58c;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
-  color: #f46e0b;
+  color: #d06f27;
 
 }
