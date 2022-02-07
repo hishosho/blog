@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "set NODE_ENV=development && node server.js",
-    "build": "next build",
+    "build": "next build && npm start",
     "start": "next start",
     "lint": "next lint"
   },
