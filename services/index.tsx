@@ -8,7 +8,8 @@ const result = (success: boolean, data: any, response: any) => {
   }
 }
 
-axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? '/api' : ''
+// axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? '/api' : ''
+axios.defaults.baseURL = '/api'
 axios.defaults.withCredentials = true
 
 axios.interceptors.request.use((opt: any): any => {
