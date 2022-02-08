@@ -66,11 +66,11 @@ const About = () => {
       <div className={styles.introduceContent}>
         <div className={styles.title}>Hello!</div>
         <div>
-          <p>😉我是张烁</p>
-          <p>💻一名前端开发工程师</p>
-          <p>🧪这个小站是我学习及运用前端知识的试验田</p>
-          <p>📝也将是我对知识学习、实践过程的记录平台</p>
-          <p>👏同时欢迎大家来我的<a target="_blank" rel="noreferrer" href="https://github.com/hishosho">github</a>溜达</p>
+          <p>😉 我是张烁</p>
+          <p>💻 一名前端开发工程师</p>
+          <p>🎨 这个小站是我学习及运用前端知识的试验田</p>
+          <p>📝 也将是我对知识学习、实践过程的记录平台</p>
+          <p>👏 同时欢迎大家来我的<a target="_blank" rel="noreferrer" href="https://github.com/hishosho">github</a>溜达</p>
         </div>
       </div>
     )

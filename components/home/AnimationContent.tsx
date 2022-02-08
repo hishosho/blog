@@ -86,13 +86,14 @@ const AnimationContent = (props: ChildProps) => {
       fontSize: `${baseFontSize}px`,
       fontWeight: 500,
       color: '#999',
-      fontFamily: 'fantasy',
+      // fontFamily: 'fantasy',
       cursor: '',
       textShadow: '#fff 3px 0 0, #fff 0 3px 0, #fff -3px 0 0, #fff 0 -3px 0'
     }
     if (item.path) {
       style.cursor = 'pointer'
-      style.textShadow = '#fff 5px 0 0, #fff 0 5px 0, #fff -5px 0 0, #fff 0 -5px 0'
+      // style.textShadow = '#fff 5px 0 0, #fff 0 5px 0, #fff -5px 0 0, #fff 0 -5px 0'
+      style.textShadow = '#fff 5px 0 0'
     }
     return (
     <div

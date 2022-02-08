@@ -317,7 +317,6 @@
   }
   .more {
     transform: scale(1);
-    font-size: .2rem;
   }
   .more:hover {
     transform: scale(1);
