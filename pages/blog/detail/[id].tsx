@@ -1,15 +1,17 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import Navigation from '../../components/common/Navigation'
-import styles from '../../styles/BlogDetail.module.css'
+import Navigation from '../../../components/common/Navigation'
+import styles from '../../../styles/BlogDetail.module.css'
 import Router from 'next/router'
-import { markdownData } from '../../mock/data'
-import BlogService from '../../services/BlogService'
+import { markdownData } from '../../../mock/data'
+import BlogService from '../../../services/BlogService'
 import marked from 'marked'
-import hljs from '../../util/highlight.js'
+import hljs from '../../../util/highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
-import SunLogo from '../../components/common/SunLogo'
-import WaterCanvas from '../../components/blog/WaterCanvas'
-import SmallNavigation from '../../components/common/SmallNavigation'
+import SunLogo from '../../../components/common/SunLogo'
+import WaterCanvas from '../../../components/blog/WaterCanvas'
+import SmallNavigation from '../../../components/common/SmallNavigation'
+
+import fetch from 'node-fetch'
 
 const BlogDetail = (props: any) => {
   const [articleContent, setArticleContent] = useState<string>('')
@@ -227,11 +229,43 @@ const BlogDetail = (props: any) => {
   )
 }
 
-BlogDetail.getInitialProps = async (ctx: any) => {
-  const { success, data }: any = await BlogService.getBlogDetail(ctx.query.id)
-  let detail = success ? data : {}
+export async function getStaticPaths() {
+  console.log('call getStaticPaths')
+   // 博客列表
+   const blogsRes: any = await fetch('http://127.0.0.1:3000/blogs/publishedBlogs')
+   const blogsData = await blogsRes.json()
+ 
+   let blogs = []
+   if (blogsData && blogsData.code) {
+     blogs = blogsData.data
+   }
+
+  const paths = blogs.map((blog:any) => ({
+    params: {
+      id: blog._id.toString()
+    }
+  }))
+
+
   return {
-    detail
+    paths,
+    fallback: 'blocking'
+  }
+}
+
+export async function getStaticProps({ params }: any) {
+  const detailRes = await fetch(`http://127.0.0.1:3000/blogs/blogDetail?id=${params.id}`)
+  const detailData:any = await detailRes.json()
+
+  let detail = ''
+  if (detailData && detailData.code) {
+    detail = detailData.data
+  }
+  return {
+      props: {
+        detail
+      },
+      revalidate: 10
   }
 }
 

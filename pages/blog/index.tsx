@@ -12,6 +12,8 @@ import { propulerBlogs, blogTags, someBlogList } from '../../mock/data'
 import WaterCanvas from '../../components/blog/WaterCanvas'
 import SmallNavigation from '../../components/common/SmallNavigation'
 
+import fetch from 'node-fetch'
+
 interface Blog {
   _id: number;
   title: string;
@@ -53,7 +55,6 @@ const Blog = (props: any) => {
           return 
         }
       })
-
       const { success, data }: any = await BlogService.getBlogsByTagId(selectedTagId)
       setBlogTags(newTagList)
       if (success) setBlogList(data)
@@ -142,7 +143,15 @@ const Blog = (props: any) => {
             <div 
               className={styles.card}
               key={_id}
-              onClick={() => Router.push(`/blog/detail?id=${_id}`)}>
+              onClick={() => {
+                Router.push({
+                  pathname:'/blog/detail',
+                  query:{
+                    id: `${_id}`
+                  },
+              }, `/blog/detail/${_id}`)
+                }
+              }>
               <BlogCard
                 id={_id}
                 title={title}
@@ -188,29 +197,42 @@ const Blog = (props: any) => {
   )
 }
 
-Blog.getInitialProps = async () => {
-  const blogData = {
-    blogs: [],
-    propulerBlogs: [],
-    blogTags: []
-  }
+export async function getStaticProps () {
   // 博客列表
-  const blogs: any = await BlogService.getBlogs()
-  if (blogs.success) {
-    blogData.blogs = blogs.data
-  }
-  // 热门博客
-  const propulerBlogs: any = await BlogService.getPopularBlogs()
-  if (propulerBlogs.success) {
-    blogData.propulerBlogs = propulerBlogs.data
-  }
-   // 博客标签
-  const blogTags: any = await BlogService.getBlogTags()
-  if (blogTags.success) {
-    blogData.blogTags = blogTags.data
+  const blogsRes: any = await fetch('http://127.0.0.1:3000/blogs/publishedBlogs')
+  const blogsData = await blogsRes.json()
+
+  let blogs = []
+  if (blogsData && blogsData.code) {
+    blogs = blogsData.data
   }
 
-  return blogData
+  // 博客标签
+  const tagsRes: any = await fetch('http://127.0.0.1:3000/tags')
+  const tagsData = await tagsRes.json()
+
+  let blogTags = []
+  if (tagsData && tagsData.code) {
+    blogTags = tagsData.data
+  }
+
+  // 热门博客
+  const propulerBlogsRes: any = await fetch('http://127.0.0.1:3000/propulerBlogs')
+  const propulerBlogsData = await propulerBlogsRes.json()
+
+  let propulerBlogs = []
+  if (propulerBlogsData && propulerBlogsData.code) {
+    propulerBlogs = propulerBlogsData.data
+  }
+
+  return {
+    props: {
+      blogs,
+      blogTags,
+      propulerBlogs
+    },
+    revalidate: 10,
+  }
 }
 
 export default Blog
